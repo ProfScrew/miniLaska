@@ -1,1 +1,9 @@
 Laska
+Descrizione del progetto: miniLaska
+Laska è una variante del gioco della dama (http://www.lasca.org/)
+miniLaska è la variante semplificata che vi proponiamo.
+L’obiettivo è di scrivere un programma che implementi una strategia di gioco.
+Il progetto sarà organizzato in passi intermedi con sminiLaska è la variante semplificata che vi proponiamo.
+L’obiettivo è di scrivere un programma che implementi una strategia di gioco.
+Il progetto sarà organizzato in passi intermedi con scadenze suggerite
+(rispettare le scadenze significa poterne discutere con il docente)
