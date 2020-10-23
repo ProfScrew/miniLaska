@@ -24,6 +24,7 @@ void initBoard(char Board[7][7]){
 
 
 
+
 void showBoard(char Board[7][7]){
   int i,j;
   for(i=0; i<7; i++){
