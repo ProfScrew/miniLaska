@@ -9,3 +9,19 @@ Il progetto sarà organizzato in passi intermedi con scadenze suggerite
 (rispettare le scadenze significa poterne discutere con il docente)
 
 
+The pieces
+As the game proceeds the following types of piece occur in the game:
+
+SOLDIER: A single counter, plain face uppermost. It can move only diagonally forwards.
+When it reaches the opponent’s side of the board, it is promoted to an officer.
+
+OFFICER: A single counter, marked face uppermost.
+It can move in either direction, forwards or backwards diagonally.
+
+COLUMN: A stack of two or more soldiers or officers of one colour,
+possibly containing prisoners of the opposite colour underneath,
+moved as a single piece. The top counter, the commander, 
+determines who owns and moves the column.
+
+COMMANDER: The top counter of a column.
+Only if it is an officer may the column move in either direction.
