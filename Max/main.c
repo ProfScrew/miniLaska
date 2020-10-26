@@ -57,6 +57,10 @@ void whiteSoldierMovement(){
 
 }
 
+int checkSoldierMultiEat(char Board[7][7][3], int n, int o ){
+
+}
+
 void checkWhiteMove(char Board[7][7][3]){
   int i, j;
   int k, l;
@@ -70,38 +74,33 @@ void checkWhiteMove(char Board[7][7][3]){
           /*can move bot right*/
         }
         /*remember to put else */
-        else{
-          for(k=0;k<3;k++){
-            l = 1; /* thi variable is used to check if there are any kill moves if no then leave loop*/
-            if(((Board[i+1+k][j-1-k][0] == 'b')|| (Board[i+1+k][j-1-k][0] == 'B')) &&  (((i+1+k) > 0 && (i+1+k) < 7) && ((j-1-k) > 0 && (j-1-k) < 7 ))){  /*check left move */
-              if(Board[i+2+k][j-2-k][0]== ' ' &&  (((i+2+k) > 0 && (i+2+k) < 7) && ((j-2-k) > 0 && (j-2-k) < 7 ))){
-                l = 0;
-                /*can eat left at least once
-                  then we have to run the for loop if we can go further */
+        else{/**/
+          l = 1; /* thi variable is used to check if there are any kill moves if no then leave loop*/
+          if(((Board[i+1][j-1][0] == 'b')|| (Board[i+1][j-1][0] == 'B')) &&  (((i+1) > 0 && (i+1) < 7) && ((j-1) > 0 && (j-1) < 7 ))){  /*check bottom left move */
+            if(Board[i+2][j-2][0]== ' ' &&  (((i+2) > 0 && (i+2) < 7) && ((j-2) > 0 && (j-2) < 7 ))){
 
-                if(k!=0){}/*register more kill moves */
+              /*can eat left at least once
+                then we have to run the function to check if we can eat more */
+                if (checkSoldierMultiEat(Board [7][7][3], (i+2), (j-2) ) == 0  ){
+                  /*i dont think i have to put someting here becouse registering moves going to be inside the checkSoldierMultiEat function */
+                }else {
+                  /*register single move */
+                }
 
-                /*normal kill move */
-
-              }
 
             }
-              if(((Board[i+1+k][j+1+k][0] == 'b')|| (Board[i+1+k][j+1+k][0] == 'B')) &&  (((i+1+k) > 0 && (i+1+k) < 7) && ((j+1+k) > 0 && (j+1+k) < 7 ))){  /*check right move*/
-                if(Board[i+2+k][j+2+k][0]== ' ' &&  (((i+2+k) > 0 && (i+2+k) < 7) && ((j+2+k) > 0 && (j+2+k) < 7 ))){
-                  l = 0;
-                  /*can eat right at least once
-                    then we have to run the for loop to check if we can go further*/
-
-                }
-              }
-
-            if(l == 1){
-              k=3; /*if cant find moves in the loop then stop*/
-              l=0;
-              }
-
 
           }
+            if(((Board[i+1+k][j+1+k][0] == 'b')|| (Board[i+1+k][j+1+k][0] == 'B')) &&  (((i+1+k) > 0 && (i+1+k) < 7) && ((j+1+k) > 0 && (j+1+k) < 7 ))){  /*check bottom right move*/
+              if(Board[i+2+k][j+2+k][0]== ' ' &&  (((i+2+k) > 0 && (i+2+k) < 7) && ((j+2+k) > 0 && (j+2+k) < 7 ))){
+                l = 0;
+                /*can eat right at least once
+                  then we have to run the for loop to check if we can go further*/
+              }
+            }
+
+
+
         }
       }
       if(Board[i][j][0] == 'W'){
@@ -115,7 +114,33 @@ void checkWhiteMove(char Board[7][7][3]){
         }else if(Board[i-1][j+1][0] == ' ' &&  (((i-1) > 0 && (i-1) < 7) && ((j+1) > 0 && (j+1) < 7 ))){  /*check top right*/
 
         }else{
-          while(l==1){}
+          k = 0;
+          while(l==0){
+            l = 1;
+            if(((Board[i+1+k][j-1-k][0] == 'b')|| (Board[i+1+k][j-1-k][0] == 'B')) &&  (((i+1+k) > 0 && (i+1+k) < 7) && ((j-1-k) > 0 && (j-1-k) < 7 ))){  /*check bottom left move */
+              if(Board[i+2+k][j-2-k][0]== ' ' &&  (((i+2+k) > 0 && (i+2+k) < 7) && ((j-2-k) > 0 && (j-2-k) < 7 ))){
+
+              }
+            }
+            if(((Board[i+1+k][j+1+k][0] == 'b')|| (Board[i+1+k][j+1+k][0] == 'B')) &&  (((i+1+k) > 0 && (i+1+k) < 7) && ((j+1+k) > 0 && (j+1+k) < 7 ))){  /*check bottom right move*/
+              if(Board[i+2+k][j+2+k][0]== ' ' &&  (((i+2+k) > 0 && (i+2+k) < 7) && ((j+2+k) > 0 && (j+2+k) < 7 ))){
+
+              }
+            }
+            if(((Board[i-1-k][j-1-k][0] == 'b')|| (Board[i-1-k][j-1-k][0] == 'B')) &&  (((i-1-k) > 0 && (i-1-k) < 7) && ((j-1-k) > 0 && (j-1-k) < 7 ))){  /*check top left move */
+              if(Board[i-2-k][j-2-k][0]== ' ' &&  (((i-2-k) > 0 && (i-2-k) < 7) && ((j-2-k) > 0 && (j-2-k) < 7 ))){
+
+              }
+            }
+            if(((Board[i-1-k][j+1+k][0] == 'b')|| (Board[i-1-k][j+1+k][0] == 'B')) &&  (((i-1-k) > 0 && (i-1-k) < 7) && ((j+1+k) > 0 && (j+1+k) < 7 ))){  /*check top left move */
+              if(Board[i-2-k][j-2-k][0]== ' ' &&  (((i-2-k) > 0 && (i-2-k) < 7) && ((j-2-k) > 0 && (j-2-k) < 7 ))){
+
+              }
+            }
+
+
+
+          }
         }
 
       }
