@@ -6,8 +6,11 @@ void initBoard(char Board[7][7][3]){
   for(i=0; i<7; i++){
     for(j=0; j<7; j++){
       if(i%2 == 0){
-        if(j%2 == 0)
+        if(j%2 == 0){
           Board [i] [j] [0] = ' ';
+          Board [i] [j] [1] = ' ';
+          Board [i] [j] [2] = ' ';
+        }
         else
           Board [i] [j] [0]= '#';
 
@@ -15,8 +18,11 @@ void initBoard(char Board[7][7][3]){
       else{
         if(j%2 == 0)
           Board [i] [j] [0]= '#';
-        else
+        else{
           Board [i] [j] [0]= ' ';
+          Board [i] [j] [1] = ' ';
+          Board [i] [j] [2] = ' ';
+        }
       }
     }
   }
@@ -232,33 +238,45 @@ void showBoard(char Board[7][7][3]){
 void newshowBoard(char Board[7][7][3]){
   int i, j, p;
 
+  printf("   |");
+  for(i=0; i<7; i++){
+    printf(" %c ", (65 + i) );
+  }
+  printf("\n   |_____________________\n");
+
   for(i=0; i<7; i++){
 
     for (p=0; p<3; p++) {
+      for(j=0; j<7;j++){
+        if(j==0 && p ==1)
+          printf(" %d |", i+1);
+        else if (j==0)
+          printf("   |");
 
-      for(j=0; j<7;i++){
         if (Board[i][j][0] == '#') {
           printf("###");
         }else{
-          printf(" %c ", Board [i] [j] [p]);
+          printf(" %c ", Board[i][j][p]);
         }
       }
       printf("\n");
     }
 
   }
+  printf("\n");
 
 }
 
 int main(int argc, char const *argv[]) {
-  char Board [7] [7] [3] = {0};
+  char Board [7] [7] [3];
   char winner = 'n';
   char turn = 'w';
   initBoard(Board);
-  showBoard(Board);
+  /*showBoard(Board);*/
   startPlayerOne(Board);
+
   startPlayerTwo(Board);
-  showBoard(Board);
+  /*showBoard(Board);*/
   newshowBoard(Board);
 
 
