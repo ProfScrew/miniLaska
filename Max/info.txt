@@ -20,8 +20,56 @@ It can move in either direction, forwards or backwards diagonally.
 
 COLUMN: A stack of two or more soldiers or officers of one colour,
 possibly containing prisoners of the opposite colour underneath,
-moved as a single piece. The top counter, the commander, 
+moved as a single piece. The top counter, the commander,
 determines who owns and moves the column.
 
 COMMANDER: The top counter of a column.
 Only if it is an officer may the column move in either direction.
+
+
+
+
+/*  too complex if the other doesnt work come back to this
+  for(i=0; i<7; i++){
+    for(j=0; j<7; j++){
+      if(Board[i][j][0] == 'w'){
+        if(j==0){ /*white pieces on left side
+          if(i==5){
+            if(Board[i][j][0] == ' '){
+              /*can move for promotion
+            }
+          }else if(Board[i+1][j+1][0]== 'w' || Board[i+1][j+1][0] == 'W'){
+            /*cant move
+          }else if(Board[i+1][j+1][0] == ' '){
+            /*blank space can move here
+          }else if(Board[i+1][j+1][0] == 'b' || Board[i+1][j+1][0] == 'B' ){
+            if(Board[i+2][j+2][0] ==  ' ' &&  (i+2) == 5){
+              /*just one move can eat
+            }else if(Board[i+2][i+2][0] == ' '){
+              if(left){
+
+              }else if(right){
+                if (right){
+                  ************
+                }else{/*can eat two peaces }
+              }
+            }
+
+              /*can eat enemy piece
+
+            }
+          }
+        }else if(j==6){
+          if (/* condition ) {
+            /* code
+          }
+        }else{
+
+        }
+      }
+      if(Board[i][j][0] == 'W'){
+
+      }
+    }
+  }
+*/
