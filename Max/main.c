@@ -68,6 +68,11 @@ void normalMovement(int* normalMove, int choice, char Board [7][7][3]){
     Board[normalMove[2+ (4 * choice) - 4]][normalMove [3 + (4 * choice) -4]][i] = Board[normalMove[0+ (4 * choice) - 4]][normalMove [1 + (4 * choice) -4]][i];
     Board[normalMove[0+ (4 * choice) - 4]][normalMove [1 + (4 * choice) -4]][i] = ' ';
   }
+  if(normalMove[2 + (4 * choice) - 4] == 6 && Board[normalMove[2+ (4 * choice) - 4]][normalMove [3 + (4 * choice) -4]][0] == 'w')
+    Board[normalMove[2+ (4 * choice) - 4]][normalMove [3 + (4 * choice) -4]][0] = 'W';
+  if(normalMove[2 + (4 * choice) - 4] == 0 && Board[normalMove[2+ (4 * choice) - 4]][normalMove [3 + (4 * choice) -4]][0] == 'b')
+    Board[normalMove[2+ (4 * choice) - 4]][normalMove [3 + (4 * choice) -4]][0] = 'B';
+
 }
 
 int* registerMoves( int i, int j, int a, int b, int* normalMove , int* countPunt){
@@ -92,7 +97,7 @@ void eatMovement(int* eatMove, int choice, char Board[7][7][3]){
   int i;
   for(i=0; i<3;i++){
     Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][i] =  Board[eatMove[0 +(6* choice)-6]][eatMove[1 + (6 * choice)-6]][i];
-    Board[eatMove[0 +(6* choice)-6]][eatMove[1 + (6 * choice)-6]][i];
+    Board[eatMove[0 +(6* choice)-6]][eatMove[1 + (6 * choice)-6]][i] = ' ';
   }
   if(Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][1] == ' '){
     Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][1] = Board[eatMove[2 +(6* choice)-6]][eatMove[3 + (6 * choice)-6]][0];
@@ -105,6 +110,11 @@ void eatMovement(int* eatMove, int choice, char Board[7][7][3]){
   Board[eatMove[2 +(6* choice)-6]][eatMove[3 + (6 * choice)-6]][0] = Board[eatMove[2 +(6* choice)-6]][eatMove[3 + (6 * choice)-6]][1];
   Board[eatMove[2 +(6* choice)-6]][eatMove[3 + (6 * choice)-6]][1] = Board[eatMove[2 +(6* choice)-6]][eatMove[3 + (6 * choice)-6]][2];
   Board[eatMove[2 +(6* choice)-6]][eatMove[3 + (6 * choice)-6]][2] = ' ';
+
+  if(eatMove[4 +(6* choice)-6] == 6 && Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][0] == 'w')
+    Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][0] = 'W';
+  if(eatMove[4 +(6* choice)-6] == 0 && Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][0] == 'b')
+    Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][0] = 'B';
 }
 
 int* registerEatMove(int i, int j, int a, int b,int l,int m, int* eatMove, int* countPunt) {
@@ -115,6 +125,8 @@ int* registerEatMove(int i, int j, int a, int b,int l,int m, int* eatMove, int* 
   eatMove[3 + (6 * *countPunt) -6] = b;
   eatMove[4 + (6 * *countPunt) -6] = l;
   eatMove[5 + (6 * *countPunt) -6] = m;
+
+  printf("hello?\n" );
 
   *countPunt = *countPunt + 1;
 
@@ -131,36 +143,29 @@ void checkWhiteMove(char Board[7][7][3]){
   int countNormMoves = 1;
   int*  normalMove = (int*) malloc(4  * countNormMoves * sizeof(int));
 
-
-
-  Board[3][1][0] = 'b';
-  Board[4][2][0] = ' ';
-
-  newshowBoard(Board);
-
   for(i=0; i<7; i++){
     for(j=0; j<7; j++){
       if(Board[i][j][0] == 'w'){
-        if(Board[i+1][j-1][0] == ' ' &&  (((i+1) > 0 && (i+1) < 7) && ((j-1) > 0 && (j-1) < 7 ))){
+        if(Board[i+1][j-1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){
           /*can move bot left*/
           normalMove =  registerMoves(i, j, (i+1), (j-1), normalMove, &countNormMoves);
         }
-        if(Board[i+1][j+1][0]== ' ' &&  (((i+1) > 0 && (i+1) < 7) && ((j+1) > 0 && (j+1) < 7 ))){
+        if(Board[i+1][j+1][0]== ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){
           /*can move bot right*/
           normalMove = registerMoves(i, j, (i+1), (j+1), normalMove, &countNormMoves);
         }
         /*remember to put else */
         /**/
 
-        if(((Board[i+1][j-1][0] == 'b')|| (Board[i+1][j-1][0] == 'B')) &&  (((i+1) > 0 && (i+1) < 7) && ((j-1) > 0 && (j-1) < 7 ))){  /*check bottom left move */
-          if(Board[i+2][j-2][0]== ' ' &&  (((i+2) > 0 && (i+2) < 7) && ((j-2) > 0 && (j-2) < 7 ))){
+        if(((Board[i+1][j-1][0] == 'b')|| (Board[i+1][j-1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check bottom left move */
+          if(Board[i+2][j-2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
             /*can eat bottom left */
             registerEatMove(i,j,i+1,j-1,i+2,j-2, eatMove, &countEatMove);
             eatMove = (int*) realloc(eatMove, 6 * (countEatMove) * sizeof(int));
           }
         }
-        if(((Board[i+1][j+1][0] == 'b')|| (Board[i+1][j+1][0] == 'B')) &&  (((i+1) > 0 && (i+1) < 7) && ((j+1) > 0 && (j+1) < 7 ))){  /*check bottom right move*/
-          if(Board[i+2][j+2][0]== ' ' &&  (((i+2) > 0 && (i+2) < 7) && ((j+2) > 0 && (j+2) < 7 ))){
+        if(((Board[i+1][j+1][0] == 'b')|| (Board[i+1][j+1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right move*/
+          if(Board[i+2][j+2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
             /*can eat bottom right*/
             registerEatMove(i,j,i+1,j+1,i+2,j+2, eatMove, &countEatMove);
             eatMove = (int*) realloc(eatMove, 6 * (countEatMove) * sizeof(int));
@@ -172,41 +177,41 @@ void checkWhiteMove(char Board[7][7][3]){
       }
       if(Board[i][j][0] == 'W'){
         /*first part normal moves to blank spot */
-        if(Board[i+1][j-1][0] == ' ' &&  (((i+1) > 0 && (i+1) < 7) && ((j-1) > 0 && (j-1) < 7 ))){        /*check bottom left*/
+        if(Board[i+1][j-1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){        /*check bottom left*/
           registerMoves(i, j, (i+1), (j-1), normalMove, &countNormMoves);
         }
-        if(Board[i+1][j+1][0] == ' ' &&  (((i+1) > 0 && (i+1) < 7) && ((j+1) > 0 && (j+1) < 7 ))){  /*check bottom right*/
+        if(Board[i+1][j+1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right*/
           registerMoves(i, j, (i+1), (j+1), normalMove, &countNormMoves);
         }
-        if(Board[i-1][j-1][0] == ' ' &&  (((i-1) > 0 && (i-1) < 7) && ((j-1) > 0 && (j-1) < 7 ))){  /*check top left*/
+        if(Board[i-1][j-1][0] == ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check top left*/
           registerMoves(i, j, (i-1), (j-1), normalMove, &countNormMoves);
         }
-        if(Board[i-1][j+1][0] == ' ' &&  (((i-1) > 0 && (i-1) < 7) && ((j+1) > 0 && (j+1) < 7 ))){  /*check top right*/
+        if(Board[i-1][j+1][0] == ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check top right*/
           registerMoves(i, j, (i-1), (j+1), normalMove, &countNormMoves);
         }
 
 
 
-        if(((Board[i+1][j-1][0] == 'b')|| (Board[i+1][j-1][0] == 'B')) &&  (((i+1) > 0 && (i+1) < 7) && ((j-1) > 0 && (j-1) < 7 ))){  /*check bottom left move */
-          if(Board[i+2][j-2][0]== ' ' &&  (((i+2) > 0 && (i+2) < 7) && ((j-2) > 0 && (j-2) < 7 ))){
+        if(((Board[i+1][j-1][0] == 'b')|| (Board[i+1][j-1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check bottom left move */
+          if(Board[i+2][j-2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
             registerEatMove(i,j,i+1,j-1,i+2,j-2, eatMove, &countEatMove);
             eatMove = (int*) realloc(eatMove, 6 * (countEatMove) * sizeof(int));
           }
         }
-        if(((Board[i+1][j+1][0] == 'b')|| (Board[i+1][j+1][0] == 'B')) &&  (((i+1) > 0 && (i+1) < 7) && ((j+1) > 0 && (j+1) < 7 ))){  /*check bottom right move*/
-          if(Board[i+2][j+2][0]== ' ' &&  (((i+2) > 0 && (i+2) < 7) && ((j+2) > 0 && (j+2) < 7 ))){
+        if(((Board[i+1][j+1][0] == 'b')|| (Board[i+1][j+1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right move*/
+          if(Board[i+2][j+2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
             registerEatMove(i,j,i+1,j+1,i+2,j+2, eatMove, &countEatMove);
             eatMove = (int*) realloc(eatMove, 6 * (countEatMove) * sizeof(int));
           }
         }
-        if(((Board[i-1][j-1][0] == 'b')|| (Board[i-1][j-1][0] == 'B')) &&  (((i-1) > 0 && (i-1) < 7) && ((j-1) > 0 && (j-1) < 7 ))){  /*check top left move */
-          if(Board[i-2][j-2][0]== ' ' &&  (((i-2) > 0 && (i-2) < 7) && ((j-2) > 0 && (j-2) < 7 ))){
+        if(((Board[i-1][j-1][0] == 'b')|| (Board[i-1][j-1][0] == 'B')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check top left move */
+          if(Board[i-2][j-2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
             registerEatMove(i,j,i-1,j-1,i-2,j-2, eatMove, &countEatMove);
             eatMove = (int*) realloc(eatMove, 6 * (countEatMove) * sizeof(int));
           }
         }
-        if(((Board[i-1][j+1][0] == 'b')|| (Board[i-1][j+1][0] == 'B')) &&  (((i-1) > 0 && (i-1) < 7) && ((j+1) > 0 && (j+1) < 7 ))){  /*check top left move */
-          if(Board[i-2][j+2][0]== ' ' &&  (((i-2) > 0 && (i-2) < 7) && ((j+2) > 0 && (j+2) < 7 ))){
+        if(((Board[i-1][j+1][0] == 'b')|| (Board[i-1][j+1][0] == 'B')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check top left move */
+          if(Board[i-2][j+2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
             registerEatMove(i,j,i-1,j+1,i-2,j+2, eatMove, &countEatMove);
             eatMove = (int*) realloc(eatMove, 6 * (countEatMove) * sizeof(int));
           }
@@ -275,6 +280,153 @@ void checkWhiteMove(char Board[7][7][3]){
 
 
 
+void checkBlackMove(char Board[7][7][3]){
+  int i, j;
+  int move;
+  int countEatMove = 1;
+  int* eatMove = (int*) malloc (6 * countEatMove * sizeof(int));
+
+  int countNormMoves = 1;
+  int*  normalMove = (int*) malloc(4  * countNormMoves * sizeof(int));
+
+
+  for(i=0; i<7; i++){
+    for(j=0; j<7; j++){
+      if(Board[i][j][0] == 'b'){
+        if(Board[i-1][j-1][0] == ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){
+          /*can top bot left*/
+          normalMove =  registerMoves(i, j, (i-1), (j-1), normalMove, &countNormMoves);
+        }
+        if(Board[i-1][j+1][0]== ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){
+          /*can top bot right*/
+          normalMove = registerMoves(i, j, (i-1), (j+1), normalMove, &countNormMoves);
+        }
+        /*remember to put else */
+        /**/
+
+        if(((Board[i-1][j-1][0] == 'w')|| (Board[i-1][j-1][0] == 'W')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check bottom left move */
+          if(Board[i-2][j-2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
+            /*can eat bottom left */
+            registerEatMove(i,j,i-1,j-1,i-2,j-2, eatMove, &countEatMove);
+            eatMove = (int*) realloc(eatMove, 4 * countEatMove * sizeof(int));
+          }
+        }
+        if(((Board[i-1][j+1][0] == 'w')|| (Board[i-1][j+1][0] == 'W')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right move*/
+          if(Board[i-2][j+2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
+            /*can eat bottom right*/
+            registerEatMove(i,j,i-1,j+1,i-2,j+2, eatMove, &countEatMove);
+            eatMove = (int*) realloc(eatMove, 4 * countEatMove * sizeof(int));
+          }
+        }
+
+
+
+      }
+      if(Board[i][j][0] == 'B'){
+        /*first part normal moves to blank spot */
+        if(Board[i+1][j-1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){        /*check bottom left*/
+          registerMoves(i, j, (i+1), (j-1), normalMove, &countNormMoves);
+        }
+        if(Board[i+1][j+1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right*/
+          registerMoves(i, j, (i+1), (j+1), normalMove, &countNormMoves);
+        }
+        if(Board[i-1][j-1][0] == ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check top left*/
+          registerMoves(i, j, (i-1), (j-1), normalMove, &countNormMoves);
+        }
+        if(Board[i-1][j+1][0] == ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check top right*/
+          registerMoves(i, j, (i-1), (j+1), normalMove, &countNormMoves);
+        }
+
+
+
+        if(((Board[i+1][j-1][0] == 'w')|| (Board[i+1][j-1][0] == 'W')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check bottom left move */
+          if(Board[i+2][j-2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
+            registerEatMove(i,j,i+1,j-1,i+2,j-2, eatMove, &countEatMove);
+            eatMove = (int*) realloc(eatMove, 4 * countEatMove * sizeof(int));
+          }
+        }
+        if(((Board[i+1][j+1][0] == 'w')|| (Board[i+1][j+1][0] == 'W')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right move*/
+          if(Board[i+2][j+2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
+            registerEatMove(i,j,i+1,j+1,i+2,j+2, eatMove, &countEatMove);
+            eatMove = (int*) realloc(eatMove, 4 * countEatMove * sizeof(int));
+          }
+        }
+        if(((Board[i-1][j-1][0] == 'w')|| (Board[i-1][j-1][0] == 'W')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check top left move */
+          if(Board[i-2][j-2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
+            registerEatMove(i,j,i-1,j-1,i-2,j-2, eatMove, &countEatMove);
+            eatMove = (int*) realloc(eatMove, 4 * countEatMove * sizeof(int));
+          }
+        }
+        if(((Board[i-1][j+1][0] == 'w')|| (Board[i-1][j+1][0] == 'W')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check top left move */
+          if(Board[i-2][j+2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
+            registerEatMove(i,j,i-1,j+1,i-2,j+2, eatMove, &countEatMove);
+            eatMove = (int*) realloc(eatMove, 4 * countEatMove * sizeof(int));
+          }
+        }
+
+      }
+
+
+    }
+  }
+  if(((countNormMoves - 1) == 0 )&& ((countEatMove - 1) == 0) ){  /*white player can't do any moves*/
+    winner = 'w';
+    return;
+  }
+  printf("%d\n", countEatMove );
+
+  j=1;
+  if(countEatMove != 1){
+    /*you have to eat so choose what move*/
+    printf("Black eat moves: %d", countEatMove -1 );
+    for(i=0; i<((countEatMove -1) * 6 ); i++){
+      if(i%6==0){
+        printf("\n");
+        printf("%d Move from: ", i/6 +1);
+      }
+      if(i%2 == 0)
+        printf("%d", eatMove[i] +1 );
+      else
+        printf("%c", 65 + eatMove[i]);
+      if(i==1 || j == i){
+        printf(" to: ");
+        j=j+6;
+      }
+
+    }
+    printf("\n\n");
+    printf("Enter move number " );
+    scanf("%d", &move );
+    eatMovement(eatMove, move ,Board);
+  }else{
+    /* you have to do normal move*/
+    printf("Black moves %d", countNormMoves -1 );
+    for (i = 0; i < ((countNormMoves -1 ) * 4); i++) {
+      if(i%4 == 0){
+        printf("\n");
+        printf("%d Move from: ", i/4 + 1);
+      }
+
+      if(i%2 == 0)
+        printf("%d", normalMove[i] +1 );
+      else
+        printf("%c", 65 + normalMove[i]);
+      if(i%2 != 0 && (i+1)%4 != 0)
+        printf(" to: ");
+    }
+    printf("\n\n");
+    printf("Enter move number " );
+    scanf("%d", &move );
+    normalMovement(normalMove, move ,Board);
+
+  }
+
+  free(eatMove);
+  free(normalMove);
+
+
+}
+
 
 
 
@@ -331,14 +483,13 @@ int main(int argc, char const *argv[]) {
   initBoard(Board);
   /*showBoard(Board);*/
   startPlayerOne(Board);
-
   startPlayerTwo(Board);
   /*showBoard(Board);*/
-  newshowBoard(Board);
-  printf("\n value #%c#\n", Board[0][0][1]);
+  /*newshowBoard(Board);
   checkWhiteMove(Board);
   newshowBoard(Board);
   printf("\n________________\n");
+  */
   /*checkBlackMove(Board);*/
 
   /*system("clear");*/
@@ -351,7 +502,8 @@ int main(int argc, char const *argv[]) {
         /*white turn functions*/
         printf("White move\n");
         /*check moves tha white can do and write them*/
-
+        newshowBoard(Board);
+        checkWhiteMove(Board);
         /*decide what moves he does*/
         turn = 'b';
       }
@@ -359,15 +511,15 @@ int main(int argc, char const *argv[]) {
         /*black turn*/
         printf("Black turn\n");
         /*check moves tha white can do and write them*/
-
+        newshowBoard(Board);
+        checkBlackMove(Board);
         /*decide what moves he does*/
 
-        turn = 'b';
+        turn = 'w';
       }
 
       /*check if anyone has won the game*/
 
-      winner = 'b';
   }
 
   if(winner =='w')
