@@ -77,7 +77,7 @@ void normalMovement(int* normalMove, int choice, char Board [7][7][3]){
 
 }
 
-void registerMoves( int i, int j, int a, int b, int normalMove [] , int* countPunt){
+int* registerMoves( int i, int j, int a, int b, int normalMove [] , int* countPunt){
   int f;
   normalMove[0 + (4 * *countPunt) -4] = i;
   /*printf("%d ", normalMove[0 + (4 * *countPunt) -4]  +1);*/
@@ -94,7 +94,7 @@ void registerMoves( int i, int j, int a, int b, int normalMove [] , int* countPu
   *countPunt = *countPunt + 1;
   /*normalMove = (int*) realloc(normalMove, 4 *  (*countPunt) * sizeof(int)); */
 
-  /*return normalMove;*/
+  return normalMove;
 
 }
 
@@ -125,7 +125,7 @@ void eatMovement(int* eatMove, int choice, char Board[7][7][3]){
     Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][0] = 'B';
 }
 
-void registerEatMove(int i, int j, int a, int b,int l,int m, int* eatMove, int* countPunt) {
+int* registerEatMove(int i, int j, int a, int b,int l,int m, int* eatMove, int* countPunt) {
   int x ;
   eatMove[0 + (6 * *countPunt) -6] = i;
   eatMove[1 + (6 * *countPunt) -6] = j;
@@ -137,9 +137,8 @@ void registerEatMove(int i, int j, int a, int b,int l,int m, int* eatMove, int* 
 
 
   *countPunt = *countPunt + 1;
-  /*
+
   return eatMove;
-  */
 }
 
 
@@ -147,23 +146,20 @@ void registerEatMove(int i, int j, int a, int b,int l,int m, int* eatMove, int* 
 void WhiteMove(char Board[7][7][3]){
   int i, j;
   int move;
-  time_t t;
+
   int countEatMove = 1;
   int* eatMove = (int*) malloc (6 * countEatMove * sizeof(int));
 
   int countNormMoves = 1;
   int*  normalMove = (int*) malloc(4  * countNormMoves * sizeof(int));
 
-  if (!eatMove || !normalMove){
-    printf("Errore malloc");
-  }
   for(i=0; i<7; i++){
     for(j=0; j<7; j++){
       if(Board[i][j][0] == 'w'){
         if(Board[i+1][j-1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){
           /*can move bot left*/
           registerMoves(i, j, (i+1), (j-1), normalMove, &countNormMoves);
-          int *normalMove = (int*) realloc(normalMove, 4 *  countNormMoves * sizeof(int));
+          normalMove = (int*) realloc(normalMove, 4 *  countNormMoves * sizeof(int));
         }
         if(Board[i+1][j+1][0]== ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){
           /*can move bot right*/
@@ -199,7 +195,7 @@ void WhiteMove(char Board[7][7][3]){
           normalMove = (int*) realloc(normalMove, 4 *  countNormMoves * sizeof(int));
         }
         if(Board[i+1][j+1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right*/
-
+          ;
           registerMoves(i, j, (i+1), (j+1), normalMove, &countNormMoves);
           normalMove = (int*) realloc(normalMove, 4 *  countNormMoves * sizeof(int));
         }
@@ -257,7 +253,7 @@ void WhiteMove(char Board[7][7][3]){
   }
   j=1;
 
-
+  time_t t;
   srand((unsigned) time(&t));
 
   if(countEatMove != 1){
