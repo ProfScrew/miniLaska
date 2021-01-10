@@ -66,6 +66,7 @@ void startPlayerTwo(char Board[7][7][3]){
 
 void normalMovement(int* normalMove, int choice, char Board [7][7][3]){
   int i;
+  printf("normalmove %d\n", choice);
   for(i=0; i<3;i++){
     Board[normalMove[2+ (4 * choice) - 4]][normalMove [3 + (4 * choice) -4]][i] = Board[normalMove[0+ (4 * choice) - 4]][normalMove [1 + (4 * choice) -4]][i];
     Board[normalMove[0+ (4 * choice) - 4]][normalMove [1 + (4 * choice) -4]][i] = ' ';
@@ -107,7 +108,10 @@ void registerMoves( int i, int j, int a, int b, int** normalMove , int* countPun
 
 
 void eatMovement(int* eatMove, int choice, char Board[7][7][3]){
+
   int i;
+
+  printf("eatmove %d\n", choice );
   for(i=0; i<3;i++){
     Board[eatMove[4 +(6* choice)-6]][eatMove[5 + (6 * choice)-6]][i] =  Board[eatMove[0 +(6* choice)-6]][eatMove[1 + (6 * choice)-6]][i];
     Board[eatMove[0 +(6* choice)-6]][eatMove[1 + (6 * choice)-6]][i] = ' ';
@@ -380,7 +384,7 @@ void checkBlack(char Board[7][7][3], int* countEatMove, int* countNormMoves, int
           if(Board[i-2][j+2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
             /*can eat bottom right*/
             registerEatMove(i,j,i-1,j+1,i-2,j+2, eatMove, countEatMove);
-            
+
             *eatMove = (int*) realloc(*eatMove, 6 * *countEatMove * sizeof(int));
 
 
