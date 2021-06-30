@@ -497,7 +497,7 @@ void cpuMoveRandom(gBoard *temp){
     
 
 }
-long valueOfBoard(gBoard *temp,char side){
+float valueOfBoard(gBoard *temp,char side){
     int i,j,k;
     float countBlack = 0, countWhite = 0;
 
@@ -537,14 +537,14 @@ long valueOfBoard(gBoard *temp,char side){
     }
     if(side == 'w'){
         if(countWhite>=countBlack)
-            return (long) ((countWhite * 10.0)/(countWhite + countBlack));
+            return (float) ((countWhite * 100.0)/(countWhite + countBlack));
         else
-            return (long) (-1)* ((countBlack * 10.0)/(countWhite + countBlack));
+            return (float) (-1)* ((countBlack * 100.0)/(countWhite + countBlack));
     }else{
         if(countBlack >= countWhite)
-            return (long) ((countBlack * 10.0)/(countWhite + countBlack));
+            return (float) ((countBlack * 100.0)/(countWhite + countBlack));
         else
-            return (long) (-1)*((countWhite * 10.0)/(countWhite + countBlack));
+            return (float) (-1)*((countWhite * 100.0)/(countWhite + countBlack));
     }
 
 }
@@ -568,29 +568,45 @@ long cpuRecFunc(int depth, gBoard *original, long *numberOfOutcomes, char side){
         freeMove(plist);
         cleanBoard(original);
         if(side == original->turn)
-            return -10;
+            return -100;
         else
-            return +10;
+            return +100;
     }
     if(depth == 0){
         
-        long temp = valueOfBoard(original,side);
+        float temp = valueOfBoard(original,side);
         *numberOfOutcomes +=1;
         cleanBoard(original);
         freeMove(plist);
         return temp;
     }
-    if(plist->countEatMove == 1){
-        eatMovement(original,plist,0);
+    if(plist->countNormalMove>1){
+        float temp=0;
+        for(i = 0; i< plist->countNormalMove; i++){
+            createBoard(pdummy);
+            copyBoard(pdummy,original);
+            normalMovement(pdummy, plist,i);
+            if(pdummy->turn = 'w')
+                pdummy->turn = 'b';
+            else
+                pdummy->turn = 'w';
+            temp += cpuRecFunc(depth-1,pdummy, numberOfOutcomes, side);
+            
+        }
         freeMove(plist);
-        return cpuRecFunc(depth-1, original, numberOfOutcomes, side);
+        cleanBoard(original);
+        return temp;
     }
     if(plist->countEatMove>1){
-        long temp = 0;
+        float temp = 0;
         for(i = 0; i< plist->countEatMove; i++){
             createBoard(pdummy);
             copyBoard(pdummy,original);
             eatMovement(pdummy,plist,i);
+            if(pdummy->turn = 'w')
+                pdummy->turn = 'b';
+            else
+                pdummy->turn = 'w';
             temp += cpuRecFunc(depth-1,pdummy,numberOfOutcomes,side);
             
         }
@@ -599,28 +615,30 @@ long cpuRecFunc(int depth, gBoard *original, long *numberOfOutcomes, char side){
         return temp;
 
     }
+    if(plist->countEatMove == 1){
+        eatMovement(original,plist,0);
+        freeMove(plist);
+        if(pdummy->turn = 'w')
+            pdummy->turn = 'b';
+        else
+            pdummy->turn = 'w';
+        return cpuRecFunc(depth-1, original, numberOfOutcomes, side);
+    }
+    
     if(plist->countNormalMove == 1){
         normalMovement(original,plist,0);
         freeMove(plist);
+        if(pdummy->turn = 'w')
+            pdummy->turn = 'b';
+        else
+            pdummy->turn = 'w';
         return cpuRecFunc(depth-1, original, numberOfOutcomes, side);
     }
-    if(plist->countNormalMove>1){
-        long temp=0;
-        for(i = 0; i< plist->countNormalMove; i++){
-            createBoard(pdummy);
-            copyBoard(pdummy,original);
-            normalMovement(pdummy, plist,i);
-            temp += cpuRecFunc(depth-1,pdummy, numberOfOutcomes, side);
-            
-        }
-        freeMove(plist);
-        cleanBoard(original);
-        return temp;
-    }
+    
     return 0;
 }
 void cpuSmart(gBoard *temp, int depth){
-    long *move;
+    float *move;
     bool check = false;
     int i, choice = 0;
     movement list;
@@ -663,13 +681,13 @@ void cpuSmart(gBoard *temp, int depth){
         return;
     }
     if(plist->countEatMove > 1){
-        move = malloc(plist->countEatMove * sizeof(long));
+        move = malloc(plist->countEatMove * sizeof(float));
         for(i=0; i<plist->countEatMove; i++){
             createBoard(pdummy);
             copyBoard(pdummy, temp);
             eatMovement(pdummy,plist,i);
             move[i] = cpuRecFunc(depth,pdummy, pOut,temp->turn);
-            move[i] = (int) ((float)move[i] /outcomes);
+            move[i] =  (move[i] /outcomes);
             outcomes = 0;
         }
         for(i = 1; i<plist->countEatMove;i++){
@@ -680,19 +698,21 @@ void cpuSmart(gBoard *temp, int depth){
         eatMovement(temp, plist, choice);
     }
     else if(plist->countNormalMove > 1){
-        move = malloc(plist->countNormalMove * sizeof(long));
+        move = malloc(plist->countNormalMove * sizeof(float));
         for(i=0; i<plist->countNormalMove; i++){
             createBoard(pdummy);
             copyBoard(pdummy, temp);
             normalMovement(pdummy,plist,i);
             move[i] = cpuRecFunc(depth,pdummy, pOut,temp->turn);
+            
             move[i] =  (move[i] /outcomes);
             outcomes = 0;
+            
         }
         for(i = 1; i< plist->countNormalMove;i++){
             if(move[choice]<move[i])
                 choice = i;
-                printf("%ld \n", move[i]);
+                printf("%f \n", move[i]);
         }
         
         normalMovement(temp, plist, choice);
@@ -700,7 +720,10 @@ void cpuSmart(gBoard *temp, int depth){
     free(move);
     freeMove(plist);
     
-    temp->turn
+    if(temp->turn = 'w')
+        temp->turn = 'b';
+    else
+        temp->turn = 'w';
 
 
 }
@@ -802,10 +825,12 @@ void gameManager(){
 
 int main(int argc, char const *argv[]) {
     int choice = 0, side = 0;
-
+    int switchGame = 0;
     gBoard original;
     gBoard *t;
-
+    int test = 0;
+    int countCpuSmart = 0;
+    int countCpuRandom = 0;
     movement list;
     movement *plist;
     plist = &list;
@@ -818,19 +843,34 @@ int main(int argc, char const *argv[]) {
     initPlayers(t);
     showBoard(t);
     
-    cpuSmart(t, 20);
-    showBoard(t);
-    /*
-    while (t->winner == 'n')
+    
+    
+    while (test <2)
     {   
-        showBoard(t);
-        cpuMoveRandom(t);
-        
-        
-        
+        initBoard(t);
+        initPlayers(t);
+        switchGame = 0;
+        while (t->winner == 'n')
+        {
+            if(switchGame == 0){
+                cpuSmart(t,6);
+                switchGame = 1;
+            }else{
+                cpuMoveRandom(t);
+                switchGame = 0;
+            }
+
+        }
+        if(t->winner == 'w')
+            countCpuSmart += 1;
+        else
+            countCpuRandom += 1;
+        t->winner = 'n';
+        test += 1;
     }
-    */
-    printf("\n WINNER %c\n", t->winner);
+    
+    printf("Smart = %d \n", countCpuSmart);
+    printf("Random = %d \n", countCpuRandom);
     cleanBoard(t);
 
     /*
