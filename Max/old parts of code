@@ -1,0 +1,84 @@
+
+void checkWhite(gBoard *temp, movement *list){
+    int i, j;
+    for(i=0; i<7; i++){
+        for(j=0; j<7; j++){
+            if(temp->Board[i][j][0] == 'w'){
+
+                if(temp->Board[i+1][j-1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){
+                    /*can move bot left*/
+                    regNormalMove(list, i, j, (i+1), (j-1));
+                }
+                if(temp->Board[i+1][j+1][0]== ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){
+                    /*can move bot right*/
+                    regNormalMove(list, i, j , (i+1), (j+1));
+                }
+                /*remember to put else */
+                /**/
+
+                if(((temp->Board[i+1][j-1][0] == 'b')|| (temp->Board[i+1][j-1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check bottom left move */
+                    if(temp->Board[i+2][j-2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
+                        /*can eat bottom left */
+                        regEatMove(list, i, j, (i+1), (j-1), (i+2), (j-2));
+                    }
+                }
+                if(((temp->Board[i+1][j+1][0] == 'b')|| (temp->Board[i+1][j+1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right move*/
+                    if(temp->Board[i+2][j+2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
+                        /*can eat bottom right*/
+                        regEatMove(list, i,j,i+1,j+1,i+2,j+2);
+                    }
+                }
+            }
+
+            if(temp->Board[i][j][0] == 'W'){
+                /*first part normal moves to blank spot */
+                if(temp->Board[i+1][j-1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){        /*check bottom left*/
+                    regNormalMove(list, i, j, (i+1), (j-1));
+                }
+                if(temp->Board[i+1][j+1][0] == ' ' &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right*/
+                    regNormalMove(list,i, j, (i+1), (j+1));
+                }
+                if(temp->Board[i-1][j-1][0] == ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check top left*/
+                    regNormalMove(list,i, j, (i-1), (j-1));
+                }
+                if(temp->Board[i-1][j+1][0] == ' ' &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check top right*/
+                    regNormalMove(list, i, j, (i-1), (j+1));
+                }
+
+                if(((temp->Board[i+1][j-1][0] == 'b')|| (temp->Board[i+1][j-1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check bottom left move */
+                    if(temp->Board[i+2][j-2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
+                        regEatMove(list, i,j,i+1,j-1,i+2,j-2);
+                    }
+                }
+                if(((temp->Board[i+1][j+1][0] == 'b')|| (temp->Board[i+1][j+1][0] == 'B')) &&  (((i+1) >= 0 && (i+1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check bottom right move*/
+                    if(temp->Board[i+2][j+2][0]== ' ' &&  (((i+2) >= 0 && (i+2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
+                        regEatMove(list,i,j,i+1,j+1,i+2,j+2);
+                    }
+                }
+                if(((temp->Board[i-1][j-1][0] == 'b')|| (temp->Board[i-1][j-1][0] == 'B')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j-1) >= 0 && (j-1) < 7 ))){  /*check top left move */
+                    if(temp->Board[i-2][j-2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j-2) >= 0 && (j-2) < 7 ))){
+                        regEatMove(list,i,j,i-1,j-1,i-2,j-2);
+                    }
+                }
+                if(((temp->Board[i-1][j+1][0] == 'b')|| (temp->Board[i-1][j+1][0] == 'B')) &&  (((i-1) >= 0 && (i-1) < 7) && ((j+1) >= 0 && (j+1) < 7 ))){  /*check top left move */
+                    if(temp->Board[i-2][j+2][0]== ' ' &&  (((i-2) >= 0 && (i-2) < 7) && ((j+2) >= 0 && (j+2) < 7 ))){
+                        regEatMove(list, i,j,i-1,j+1,i-2,j+2);
+                    }
+                }
+            }
+        }
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
