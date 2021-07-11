@@ -192,6 +192,18 @@ void copyBoard(gBoard *copy, gBoard *original){
     }
 }
 
+void changeTurn(gBoard *temp){
+    if(temp->turn == 'w')
+        temp->turn = 'b';
+    else
+        temp->turn = 'w';
+}
+char getTurn(gBoard *temp){
+    return temp->turn;
+}
+char getWinner(gBoard *temp){
+    return temp->winner;
+}
 
 void normalMovement(gBoard *temp, movement *list, int move){
     int i;
@@ -581,23 +593,7 @@ float cpuRecFunc(int depth, gBoard *original, float *numberOfOutcomes, char side
         destroyMove(plist);
         return temp;
     }
-    if(plist->countNormalMove>1){
-        float temp=0;
-        for(i = 0; i< plist->countNormalMove; i++){
-            createBoard(pdummy);
-            copyBoard(pdummy,original);
-            normalMovement(pdummy, plist,i);
-            if(pdummy->turn = 'w')
-                pdummy->turn = 'b';
-            else
-                pdummy->turn = 'w';
-            temp += cpuRecFunc(depth-1,pdummy, numberOfOutcomes, side);
-            
-        }
-        destroyMove(plist);
-        destroyBoard(original);
-        return temp;
-    }
+    
     if(plist->countEatMove>1){
         float temp = 0;
         for(i = 0; i< plist->countEatMove; i++){
@@ -619,13 +615,29 @@ float cpuRecFunc(int depth, gBoard *original, float *numberOfOutcomes, char side
     if(plist->countEatMove == 1){
         eatMovement(original,plist,0);
         destroyMove(plist);
-        if(pdummy->turn = 'w')
-            pdummy->turn = 'b';
+        if(original->turn = 'w')
+            original->turn = 'b';
         else
-            pdummy->turn = 'w';
+            original->turn = 'w';
         return cpuRecFunc(depth-1, original, numberOfOutcomes, side);
     }
-    
+    if(plist->countNormalMove>1){
+        float temp=0;
+        for(i = 0; i< plist->countNormalMove; i++){
+            createBoard(pdummy);
+            copyBoard(pdummy,original);
+            normalMovement(pdummy, plist,i);
+            if(pdummy->turn = 'w')
+                pdummy->turn = 'b';
+            else
+                pdummy->turn = 'w';
+            temp += cpuRecFunc(depth-1,pdummy, numberOfOutcomes, side);
+            
+        }
+        destroyMove(plist);
+        destroyBoard(original);
+        return temp;
+    }
     if(plist->countNormalMove == 1){
         normalMovement(original,plist,0);
         destroyMove(plist);
@@ -639,6 +651,8 @@ float cpuRecFunc(int depth, gBoard *original, float *numberOfOutcomes, char side
     return 0;
 }
 void cpuSmart(gBoard *temp, int depth){
+    time_t t;
+    int count = 0;
     float *move;
     bool check = false;
     int i, choice = 0;
@@ -649,6 +663,7 @@ void cpuSmart(gBoard *temp, int depth){
     char arr[2] = {'w', 'b'};
     float outcomes = 0;
     float *pOut;
+    srand((unsigned) time(&t));
     pOut = &outcomes;
     pdummy = &dummy;
     plist = &list;
@@ -715,6 +730,22 @@ void cpuSmart(gBoard *temp, int depth){
             printf("To: %d%c ", plist->eatMove[i][4]+1, plist->eatMove[i][5]+65);
             printf("Value: %f \n", move[i]);
         }
+        
+
+        for(i=0; i<plist->countEatMove;i++){
+            if(move[choice] == move[i])
+                count++;
+        }
+        if(count>1){
+            int t = 0;
+            count = (rand() % count) +1;
+            for(i=0; t < count;i++){
+                if(move[i] == move[choice])
+                    t++;
+            }
+            choice = i-1;
+        }
+
         printf("\nFinal choice: %d\n", choice+1);
         eatMovement(temp, plist, choice);
     }
@@ -741,19 +772,235 @@ void cpuSmart(gBoard *temp, int depth){
                 
                 printf("Value: %f \n", move[i]);
         }
+        for(i=0; i<plist->countNormalMove;i++){
+            if(move[choice] == move[i])
+                count++;
+        }
+        if(count>1){
+            int t = 0;
+            count = (rand() % count) +1;
+            for(i=0; t < count;i++){
+                if(move[i] == move[choice])
+                    t++;
+            }
+            choice = i-1;
+        }
         printf("\nFinal choice: %d\n", choice+1);
         normalMovement(temp, plist, choice);
     }
     free(move);
     destroyMove(plist);
-    
-    if(temp->turn == 'w')
-        temp->turn = 'b';
-    else 
-        temp->turn = 'w';
+    changeTurn(temp;)
 
 
 }
+
+long cpuEatRec(gBoard *original, int depth, int depthCount, float value, int *numberOfOutcomes, char side){
+
+    gBoard dummy;
+    gBoard *pdummy;
+
+    movement list;
+    movement *plist;
+    int sign;
+    if(side == original->turn)
+        sign = +1;
+    else
+        sign = -1;
+
+    plist = &list;
+    pdummy = &dummy;
+    createMove(plist);
+
+    if(original->turn == 'w')
+        checkWhite(original, plist);
+    else if(original->turn == 'b')
+        checkBlack(original,plist);
+    
+    if(plist->countEatMove == 0 && plist->countNormalMove == 0){
+        if(side == original->turn)
+            value -= 100;
+        else
+            value += 100;
+
+        value /= depthCount;
+        destroyMove(plist);
+        destroyBoard(original);
+        *numberOfOutcomes +=1;
+        return value;
+    }
+    if(depth == 0){
+        *numberOfOutcomes += 1;
+        destroyBoard(original);
+        destroyMove(plist);
+        return value/depthCount;
+    }
+    if(plist->countEatMove==1){
+        eatMovement(original,plist,0);
+        destroyMove(plist);
+        changeTurn(original);
+        return cpuEatRec(original,depth-1, depthCount+1,value+(sign * 40),numberOfOutcomes,side);
+    }
+    if(plist->countEatMove>1){
+        float temp = 0;
+        int i;
+
+        for(i=0;i<plist->countEatMove;i++){
+            createBoard(pdummy);
+            copyBoard(pdummy,original);
+            eatMovement(pdummy,plist,i);
+            changeTurn(pdummy);
+            temp+=cpuEatRec(pdummy,depth-1,depthCount+1,value+(sign * 40),numberOfOutcomes,side);
+        }
+        destroyBoard(original);
+        destroyMove(plist);
+        return temp;
+    }
+    if(plist->countNormalMove == 1){
+        normalMovement(original,plist,0);
+        destroyMove(plist);
+        changeTurn(original);
+        return cpuEatRec(original,depth-1,depthCount+1,value,numberOfOutcomes,side);
+    }
+    if(plist->countNormalMove > 1){
+
+        float temp = 0;
+        int i;
+
+        for(i=0;i<plist->countNormalMove;i++){
+            createBoard(pdummy);
+            copyBoard(pdummy,original);
+            normalMovement(pdummy,plist,i);
+            changeTurn(pdummy);
+            temp+=cpuEatRec(pdummy,depth-1,depthCount+1,value,numberOfOutcomes,side);
+        }
+        destroyMove(plist);
+        destroyBoard(original);
+        return temp;
+
+    }
+
+    return 0;
+
+
+}
+void cpuEat(gBoard *temp, int depth){
+    bool check = false;
+    int choice = 0;
+    float *move;
+    int i, j;
+    char arr[2] = {'w', 'b'};
+    int outcomes = 0;
+    int *pout;
+    gBoard dummy;
+    gBoard *pdummy;
+    movement list;
+    movement *plist;
+
+    pdummy = &dummy;
+    plist = &list;
+    pout = &outcomes;
+    createMove(plist);
+    if(temp->turn== 'w'){
+        checkWhite(temp,plist);
+        i=1;
+        printf("\nWhite ");
+    }
+    else if(temp->turn == 'b'){
+        checkBlack(temp,plist);
+        i=0;
+        printf("\nBlack ");
+    }
+
+    if(plist->countEatMove == 0 && plist->countNormalMove == 0){
+        temp->winner = arr[i];
+        check = true;
+        printf("no moves Available.\n");
+    }
+    if(plist->countEatMove == 1){
+        eatMovement(temp,plist,0);
+        check = true;
+        printf("cpu eat move:\n");
+        printf("From: %d%c ", plist->eatMove[0][0]+1, plist->eatMove[0][1]+65);
+        printf("Eat: %d%c ", plist->eatMove[0][2]+1, plist->eatMove[0][3]+65);
+        printf("To: %d%c\n", plist->eatMove[0][4]+1, plist->eatMove[0][5]+65);
+        
+
+    }
+    if(plist->countEatMove == 0 && plist->countNormalMove == 1){
+        normalMovement(temp,plist,0);
+        check = true;
+
+        printf("cpu move:\n");
+        printf("From: %d%c ", plist->normalMove[0][0]+1, plist->normalMove[0][1]+65);
+        printf("To: %d%c\n", plist->normalMove[0][2]+1, plist->normalMove[0][3]+65);
+    }
+    if(check){
+        destroyMove(plist);
+        changeTurn(temp);
+        return;
+    }
+
+    if(plist->countEatMove > 1){
+        move = malloc(plist->countEatMove * sizeof(float));
+        for(j=0;j<plist->countEatMove; j++){
+            createBoard(pdummy);
+            copyBoard(pdummy,temp);
+            eatMovement(pdummy,plist,j);
+            changeTurn(pdummy);
+            move[j] = cpuEatRec(pdummy,depth,1,50,pout,temp->turn);
+
+            move[j] /= outcomes;
+            outcomes = 0;
+        }
+
+        printf("cpu eat moves:\n");
+        for(j=0; j<plist->countEatMove; j++){
+            if(move[choice]<move[j])
+                choice = j;
+
+            printf("From: %d%c ", plist->eatMove[j][0]+1, plist->eatMove[j][1]+65);
+            printf("Eat: %d%c ", plist->eatMove[j][2]+1, plist->eatMove[j][3]+65);
+            printf("To: %d%c ", plist->eatMove[j][4]+1, plist->eatMove[j][5]+65);
+            printf("Value: %f \n", move[j]);
+        }
+        printf("\nFinal choice: %d \n", choice+1);
+        eatMovement(temp,plist,choice);
+
+    }
+    else if(plist->countNormalMove>1){
+        move = malloc(plist->countNormalMove * sizeof(float));
+        for(j=0;j<plist->countNormalMove; j++){
+            createBoard(pdummy);
+            copyBoard(pdummy,temp);
+            normalMovement(pdummy,plist,j);
+            changeTurn(pdummy);
+            move[j] = cpuEatRec(pdummy,depth,1,0,pout,temp->turn);
+
+            move[j] = move[j] / outcomes;
+            outcomes = 0;
+        }
+
+        printf("cpu moves:\n");
+        for(j=0; j<plist->countNormalMove; j++){
+            if(move[choice]<move[j])
+                choice = j;
+
+                printf("%d From: %d%c ", j+1, plist->normalMove[j][0]+1, plist->normalMove[j][1]+65);
+                printf("To: %d%c ", plist->normalMove[j][2]+1, plist->normalMove[j][3]+65);
+                
+                printf("Value: %f \n", move[i]);
+        }
+        printf("\nFinal choice: %d \n", choice+1);
+        normalMovement(temp,plist,choice);
+    }
+    
+    free(move);
+    destroyMove(plist);
+    changeTurn(temp);
+
+}
+
 
 void showBoardfirst(gBoard *temp){
     int i=0,j=0,k=0;
@@ -1004,6 +1251,30 @@ void testCpu(int tests,int side,int depth){
 }
 
 int main(int argc, char const *argv[]) {
+
+    gBoard test;
+    gBoard *ptest;
+
+    ptest = &test;
+
+    createBoard(ptest);
+    initBoard(ptest);
+    initPlayers(ptest);
+
+    while (ptest->winner == 'n')
+    {   
+        
+        
+        
+        cpuEat(ptest,10);
+        showBoard(ptest);
+        cpuMoveRandom(ptest);
+        showBoard(ptest);
+    }
+    
+
+    destroyBoard(ptest);
+    /*
     int depth = 3;
     int choice;
     int tests, side;
@@ -1042,7 +1313,7 @@ int main(int argc, char const *argv[]) {
 
 
 
-    /*
+    
     
     */
 

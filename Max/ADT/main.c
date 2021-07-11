@@ -5,6 +5,7 @@
 
 #include "board.h"
 #include "move.h"
+#include "participants.h"
 
 int main(int argc, char const *argv[])
 {

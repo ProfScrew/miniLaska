@@ -581,23 +581,7 @@ long cpuRecFunc(int depth, gBoard *original, long *numberOfOutcomes, char side){
         freeMove(plist);
         return temp;
     }
-    if(plist->countNormalMove>1){
-        float temp=0;
-        for(i = 0; i< plist->countNormalMove; i++){
-            createBoard(pdummy);
-            copyBoard(pdummy,original);
-            normalMovement(pdummy, plist,i);
-            if(pdummy->turn = 'w')
-                pdummy->turn = 'b';
-            else
-                pdummy->turn = 'w';
-            temp += cpuRecFunc(depth-1,pdummy, numberOfOutcomes, side);
-            
-        }
-        freeMove(plist);
-        cleanBoard(original);
-        return temp;
-    }
+    
     if(plist->countEatMove>1){
         float temp = 0;
         for(i = 0; i< plist->countEatMove; i++){
@@ -619,20 +603,36 @@ long cpuRecFunc(int depth, gBoard *original, long *numberOfOutcomes, char side){
     if(plist->countEatMove == 1){
         eatMovement(original,plist,0);
         freeMove(plist);
-        if(pdummy->turn = 'w')
-            pdummy->turn = 'b';
+        if(original->turn = 'w')
+            original->turn = 'b';
         else
-            pdummy->turn = 'w';
+            original->turn = 'w';
         return cpuRecFunc(depth-1, original, numberOfOutcomes, side);
     }
-    
+    if(plist->countNormalMove>1){
+        float temp=0;
+        for(i = 0; i< plist->countNormalMove; i++){
+            createBoard(pdummy);
+            copyBoard(pdummy,original);
+            normalMovement(pdummy, plist,i);
+            if(pdummy->turn = 'w')
+                pdummy->turn = 'b';
+            else
+                pdummy->turn = 'w';
+            temp += cpuRecFunc(depth-1,pdummy, numberOfOutcomes, side);
+            
+        }
+        freeMove(plist);
+        cleanBoard(original);
+        return temp;
+    }
     if(plist->countNormalMove == 1){
         normalMovement(original,plist,0);
         freeMove(plist);
-        if(pdummy->turn = 'w')
-            pdummy->turn = 'b';
+        if(original->turn = 'w')
+            original->turn = 'b';
         else
-            pdummy->turn = 'w';
+            original->turn = 'w';
         return cpuRecFunc(depth-1, original, numberOfOutcomes, side);
     }
     
