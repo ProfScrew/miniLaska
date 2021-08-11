@@ -1014,8 +1014,8 @@ void showBoard(gBoard *temp){
 
 }
 
-
-void readGame(gBoard *temp){ /* used for debug and testing board*/
+/*
+void readGame(gBoard *temp){ used for debug and testing board
     char buffer[1];
     int tempa = 0,tempb = 0,tempc = 0;
     char info = ' ';
@@ -1036,6 +1036,7 @@ void readGame(gBoard *temp){ /* used for debug and testing board*/
     }
     fclose(fp);
 }
+*/
 
 void gameManager(int depth){
     gBoard game;
