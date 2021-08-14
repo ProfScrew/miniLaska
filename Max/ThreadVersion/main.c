@@ -3,6 +3,7 @@
 #include <time.h>
 #include <stdbool.h>
 
+#include<pthread.h>
 
 typedef struct availableMovement{
     int countEatMove;
@@ -971,7 +972,7 @@ void gameManager2(gBoard *pgame, int depthS, int depthE, int first, int second){
     int count = 0;
     while (pgame->winner == 'n' && count < 100)
     {
-        showBoard(pgame);
+        /*showBoard(pgame);*/
         switch (first)
         {
         case 1:
@@ -993,7 +994,7 @@ void gameManager2(gBoard *pgame, int depthS, int depthE, int first, int second){
         }
         count++;
         if(pgame->winner == 'n' && count<100){
-            showBoard(pgame);
+            /*showBoard(pgame);*/
             switch (second)
             {
             case 1:
@@ -1150,7 +1151,59 @@ void testManager(int tests, int first, int second, int depthS, int depthE, int *
 }
 
 
+void *threadTest(void *value){
+    int i,first,second;
+    int tests = 10, depthS=4,depthE=5;
+    int arrCountFirst[9] = {0,0,0,0,0,0,0,0,0}, arrCountSecond[9] = {0,0,0,0,0,0,0,0,0}, arrCountDraw[9] = {0,0,0,0,0,0,0,0,0};
 
+    int ivalue = *((int*) value);
+
+    for(i=ivalue*3;i<(ivalue+1)*3;i++){
+        if(i<3)
+            first = 1;
+        else if(i<6)
+            first = 2;
+        else if(i<9)
+            first = 3;
+
+        if(i==0 || i==3 || i==6)
+            second = 1;
+        else if(i==1 || i==4 || i==7)
+            second = 2;
+        else if(i == 2 || i==5 || i==8)
+            second = 3;
+
+                
+
+        testManager(tests,first+1,second+1,depthS,depthE,&arrCountFirst[i],&arrCountSecond[i],&arrCountDraw[i]);
+
+            
+    }
+
+    for(i=ivalue*3;i<(ivalue+1)*3;i++){
+        if(i<3)
+            printf("\nRandom ");
+        else if(i<6)
+            printf("\nCpuScan");
+        else if(i<9)
+            printf("\nCpuEat");
+        
+        printf(" white side: %d wins.", arrCountFirst[i]);
+
+
+        if(i==0 || i==3 || i==6)
+            printf("  Random");
+        else if(i==1 || i==4 || i==7)
+            printf("  CpuScan");
+        else if(i == 2 || i==5 || i==8)
+            printf("  CpuEat");
+
+        printf(" black side: %d wins.",arrCountSecond[i]);
+
+        printf("  Draws: %d", arrCountDraw[i]);
+        }
+    return NULL;
+}
 
 void testCpu(int depthS, int depthE){
     int countFirst =0, countSecond=0, countDraw=0;
@@ -1181,55 +1234,17 @@ void testCpu(int depthS, int depthE){
         break;
     case 2:
         {
+            pthread_t threads[3];
 
-            int arrCountFirst[9] = {0,0,0,0,0,0,0,0,0}, arrCountSecond[9] = {0,0,0,0,0,0,0,0,0}, arrCountDraw[9] = {0,0,0,0,0,0,0,0,0};
-            
-
-
-            for(i=0;i<9;i++){
-                if(i<3)
-                    first = 1;
-                else if(i<6)
-                    first = 2;
-                else if(i<9)
-                    first = 3;
-
-                if(i==0 || i==3 || i==6)
-                    second = 1;
-                else if(i==1 || i==4 || i==7)
-                    second = 2;
-                else if(i == 2 || i==5 || i==8)
-                    second = 3;
-
-                
-
-                testManager(tests,first+1,second+1,depthS,depthE,&arrCountFirst[i],&arrCountSecond[i],&arrCountDraw[i]);
-
-            
+            for(i=0;i<3;i++){
+                pthread_create(&threads[i],NULL,threadTest,&i);
             }
 
-            for(i=0;i<9;i++){
-                if(i<3)
-                    printf("\nRandom ");
-                else if(i<6)
-                    printf("\nCpuScan");
-                else if(i<9)
-                    printf("\nCpuEat");
-                
-                printf(" white side: %d wins.", arrCountFirst[i]);
-
-
-                if(i==0 || i==3 || i==6)
-                    printf("  Random");
-                else if(i==1 || i==4 || i==7)
-                    printf("  CpuScan");
-                else if(i == 2 || i==5 || i==8)
-                    printf("  CpuEat");
-
-                printf(" black side: %d wins.",arrCountSecond[i]);
-
-                printf("  Draws: %d", arrCountDraw[i]);
+            for(i=0;i<3;i++){
+                pthread_join(threads[i],NULL);
             }
+
+        
 
         }
         printf("\nFine\n");
