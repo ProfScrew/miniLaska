@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "stdio.h": "c",
-        "board.h": "c",
-        "*.tcc": "c"
-    }
-}

@@ -7,10 +7,15 @@
 #include "move.h"
 #include "participants.h"
 
-
+/*function used to play game between first participants vs second participants*/
+/*using this you can make al the combination without writing the individualty*/
 void gameControl(gBoard *pgame, int depthS, int depthE, int first, int second);
+/*manages a game between a player vs another entity(player,cpurand,cpuscan,cpueat)*/
 void gameManager(int depthS, int depthE);
+
+/*function used to assist function below and make N(tests) of games and save the resault*/
 void testManager(int tests, int first, int second, int depthS, int depthE, int *countFirst, int *countSecond, int *countDraw);
+/*function used to manage test games for statistics*/
 void testCpu(int depthS, int depthE);
 
 
@@ -22,7 +27,7 @@ int main(int argc, char const *argv[])
     bool exit = false;
 
 
-    while(exit == false){
+    while(exit == false){   /*main menu*/
         printf("\nWelcome to miniLaska \n");
         printf("Menu:\n1.Play Game\n2.Test CPU vs CPU\n3.Setting depth CPU\n4.Exit\nYour choice:");
         scanf("%d", &choice);
@@ -65,11 +70,12 @@ int main(int argc, char const *argv[])
 
 
 void gameControl(gBoard *pgame, int depthS, int depthE, int first, int second){
+
     int count = 0;
     while (getWinner(pgame) == 'n' && count < 100)
     {
         showBoard(pgame);
-        switch (first)
+        switch (first)  /*white side*/
         {
         case 1:
             playerMove(pgame);
@@ -89,7 +95,7 @@ void gameControl(gBoard *pgame, int depthS, int depthE, int first, int second){
             break;
         }
         count++;
-        if(getWinner(pgame) == 'n' && count<100){
+        if(getWinner(pgame) == 'n' && count<100){       /*black side*/
             showBoard(pgame);
             switch (second)
             {
@@ -218,12 +224,12 @@ void testManager(int tests, int first, int second, int depthS, int depthE, int *
     initBoard(pTest);
     initPlayers(pTest);
 
-    for(i = 0; i < tests; i++){
+    for(i = 0; i < tests; i++){     /*executes num of test*/
         initBoard(pTest);
         initPlayers(pTest);
         gameControl(pTest,depthS,depthE,first,second);
 
-        if(getWinner(pTest) == 'd')
+        if(getWinner(pTest) == 'd')     /*saves resault*/
             *countDraw = *countDraw + 1;
         else if(getWinner(pTest) == 'w')
             *countFirst = *countFirst +1;
@@ -247,7 +253,7 @@ void testCpu(int depthS, int depthE){
     
     switch (choice)
     {
-    case 1:
+    case 1:     /*single type test between one entity vs another*/
         printf("\nWho is gonna play White \n1.Random \n2.CpuScan \n3.CpuEat\n");
         scanf("%d", &first);
         first++;
@@ -261,7 +267,7 @@ void testCpu(int depthS, int depthE){
         printf("Result of test:\n White wins: %d \n Black wins: %d \n Draws: %d",countFirst,countSecond,countDraw);
 
         break;
-    case 2:
+    case 2: /*full type, test between all entitys*/
         {
 
             int arrCountFirst[9] = {0,0,0,0,0,0,0,0,0}, arrCountSecond[9] = {0,0,0,0,0,0,0,0,0}, arrCountDraw[9] = {0,0,0,0,0,0,0,0,0};
