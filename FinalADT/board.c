@@ -128,41 +128,41 @@ void normalMovement(gBoard *temp, movement *list, int move){
     int i;
     /*board[dest] = board[origin]*/
     for(i=0; i<3;i++){
-        temp->Board[list->normalMove[move][2]][list->normalMove[move][3]][i] = temp->Board[list->normalMove[move][0]][list->normalMove[move][1]][i];
-        temp->Board[list->normalMove[move][0]][list->normalMove[move][1]][i] = ' ';
+        temp->Board[getMoveNormal(list,move,2)][getMoveNormal(list,move,3)][i] = temp->Board[getMoveNormal(list,move,0)][getMoveNormal(list,move,1)][i];
+        temp->Board[getMoveNormal(list,move,0)][getMoveNormal(list,move,1)][i] = ' ';
     }
     /*if board[dest] = bordo then make promo*/
-    if(list->normalMove[move][2] == 6 && temp->Board[list->normalMove[move][2]][list->normalMove[move][3]] [0] == 'w')
-        temp->Board[list->normalMove[move][2]][list->normalMove[move][3]] [0] = 'W';
-    if(list->normalMove[move][2] == 0 && temp->Board[list->normalMove[move][2]][list->normalMove[move][3]][0] == 'b')
-        temp->Board[list->normalMove[move][2]][list->normalMove[move][3]][0] = 'B';
+    if(getMoveNormal(list,move,2) == 6 && temp->Board[getMoveNormal(list,move,2)][getMoveNormal(list,move,3)] [0] == 'w')
+        temp->Board[getMoveNormal(list,move,2)][getMoveNormal(list,move,3)] [0] = 'W';
+    if(getMoveNormal(list,move,2) == 0 && temp->Board[getMoveNormal(list,move,2)][getMoveNormal(list,move,3)][0] == 'b')
+        temp->Board[getMoveNormal(list,move,2)][getMoveNormal(list,move,3)][0] = 'B';
 }
 void eatMovement(gBoard *temp, movement *list, int move){
     int i;
     /*board[dest] = board[origin]*/
     for(i=0; i<3;i++){
-        temp->Board[list->eatMove[move][4]]      [list->eatMove[move][5]]    [i] =  temp->Board[list->eatMove[move][0]][list->eatMove[move][1]][i];
-        temp->Board[list->eatMove[move][0]][list->eatMove[move][1]][i] = ' ';
+        temp->Board[getMoveEat(list,move,4)]      [getMoveEat(list,move,5)]    [i] =  temp->Board[getMoveEat(list,move,0)][getMoveEat(list,move,1)][i];
+        temp->Board[getMoveEat(list,move,0)][getMoveEat(list,move,1)][i] = ' ';
     }
     /*adding the eaten part to the buttom*/
-    if(temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][1] == ' '){
-        temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][1] = temp->Board[list->eatMove[move][2]][list->eatMove[move][3]][0];
+    if(temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][1] == ' '){
+        temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][1] = temp->Board[getMoveEat(list,move,2)][getMoveEat(list,move,3)][0];
     }
     else{
-        if(temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][2] == ' '){
-            temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][2] = temp->Board[list->eatMove[move][2]][list->eatMove[move][3]][0];
+        if(temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][2] == ' '){
+            temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][2] = temp->Board[getMoveEat(list,move,2)][getMoveEat(list,move,3)][0];
         }
     }
     /*the eaten piece goes up and add a ' ' at bottom*/
-    temp->Board[list->eatMove[move][2]][list->eatMove[move][3]][0] = temp->Board[list->eatMove[move][2]][list->eatMove[move][3]][1];
-    temp->Board[list->eatMove[move][2]][list->eatMove[move][3]][1] = temp->Board[list->eatMove[move][2]][list->eatMove[move][3]][2];
-    temp->Board[list->eatMove[move][2]][list->eatMove[move][3]][2] = ' ';
+    temp->Board[getMoveEat(list,move,2)][getMoveEat(list,move,3)][0] = temp->Board[getMoveEat(list,move,2)][getMoveEat(list,move,3)][1];
+    temp->Board[getMoveEat(list,move,2)][getMoveEat(list,move,3)][1] = temp->Board[getMoveEat(list,move,2)][getMoveEat(list,move,3)][2];
+    temp->Board[getMoveEat(list,move,2)][getMoveEat(list,move,3)][2] = ' ';
 
     /*promotion if at border*/
-    if(list->eatMove[move][4] == 6 && temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][0] == 'w')
-        temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][0] = 'W';
-    if(list->eatMove[move][4] == 0 && temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][0] == 'b')
-        temp->Board[list->eatMove[move][4]][list->eatMove[move][5]][0] = 'B';
+    if(getMoveEat(list,move,4) == 6 && temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][0] == 'w')
+        temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][0] = 'W';
+    if(getMoveEat(list,move,4) == 0 && temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][0] == 'b')
+        temp->Board[getMoveEat(list,move,4)][getMoveEat(list,move,5)][0] = 'B';
 
 }
 
@@ -299,18 +299,55 @@ void checkBlack(gBoard *temp, movement *list){
 }
 
 
+float valueOfBoard(gBoard *temp,char side){         /*scans and assigns value to a board*/
+    int i,j,k;
+    float countBlack = 0, countWhite = 0;
 
-void showBoardfirst(gBoard *temp){
-    int i=0,j=0,k=0;
-    if(temp->Board != NULL){
-        for(i=0; i<7; i++){
-            for(j=0; j<7; j++){
-                    printf("%c", temp->Board[i][j][k]);
+    for(i=0; i<7; i++){
+        for(j=0; j<7; j++){
+            for(k=0; k<3; k++){
+                if(temp->Board[i][j][k] == 'W'){
+                    if(k == 0)
+                        countWhite += 2;
+                    else if(k == 1 || k == 2)
+                        countWhite += 0.40;
                 }
-                printf("\n");
+                if(temp->Board[i][j][k] == 'w'){
+                    if(k == 0)
+                        countWhite += 1;
+                    else if(k==1 || k == 2)
+                        countWhite += 0.20;
+                }
+                if(temp->Board[i][j][k] == 'B'){
+                    if(k == 0)
+                        countBlack += 2;
+                    else if(k == 1 || k == 2)
+                        countBlack += 0.40;
+                }
+                if(temp->Board[i][j][k] == 'b'){
+                    if(k == 0)
+                        countBlack += 1;
+                    else if(k==1 || k == 2)
+                        countBlack += 0.20;
+                }
             }
+        }
     }
+
+    if(side == 'w'){
+        if(countWhite>=countBlack)
+            return (float) ((countWhite * 100.0)/(countWhite + countBlack));
+        else
+            return (float) (-1)* ((countBlack * 100.0)/(countWhite + countBlack));
+    }else{
+        if(countBlack >= countWhite)
+            return (float) ((countBlack * 100.0)/(countWhite + countBlack));
+        else
+            return (float) (-1)*((countWhite * 100.0)/(countWhite + countBlack));
+    }
+
 }
+
 void showBoard(gBoard *temp){
     int i, j, p;
 

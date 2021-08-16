@@ -12,39 +12,54 @@
 void playerMove(gBoard *temp){
     movement list;
     movement *plist;
-    int i, move;
+    int i, move=0;
     plist = &list;
     createMove(plist);
 
-    if(temp->turn == 'w'){          /*checking moves*/
+    if(getTurn(temp) == 'w'){          /*checking moves*/
         checkWhite(temp,plist);
         printf("\nWhite ");
-    }else if (temp->turn == 'b'){
+    }else if (getTurn(temp) == 'b'){
         checkBlack(temp, plist);
         printf("\nBlack ");
     }
-    if(plist->countEatMove==0 && plist->countNormalMove==0){    /*no moves (lost)*/
+    if(getCountEat(plist)==0 && getCountNormal(plist)==0){    /*no moves (lost)*/
         printf("no moves.\n");
         selectWinner(temp);
         destroyMove(plist);
     }
-    else if(plist->countEatMove != 0){          /*eat moves available*/
+    else if(getCountEat(plist) != 0){          /*eat moves available*/
+        int count=0;
         printEatMoves(plist,NULL);
-        printf("Enter Move: ");
-        scanf("%d", &move );
-        if(move < 0 || move > list.countEatMove){
-            printf("\n Error move\n");
-            exit(4);
+        while(move<1 || move > getCountEat(plist)){
+            printf("Enter Move: ");
+            scanf("%d", &move );
+            if(move < 1 || move > getCountEat(plist)){
+                count++;
+                printf("\n Error move! Try again.(%d available mistakes)\n",(5-count));
+                if(count == 5){
+                    printf("\nExceded limit mistakes\n");
+                    exit(4);
+                }
+            }
         }
         eatMovement(temp, plist, move-1);
     }
     else{                                      /*normal moves available*/
+        int count=0;
         printNormMoves(plist, NULL);
-        printf("Enter Move: ");
-        scanf("%d", &move );
-        if(move < 0 || move > list.countNormalMove){
-            printf("\n Error move\n");
-            exit(4);
+        while (move<1 || move>getCountNormal(plist))
+        {
+            printf("Enter Move: ");
+            scanf("%d", &move );
+            if(move < 1 || move > getCountNormal(plist)){
+                count++;
+                printf("\n Error move! Try again.(%d available mistakes)\n",(5-count));
+                if(count == 5){
+                    printf("\nExceded limit mistakes\n");
+                    exit(4);
+                }
+            }
         }
         normalMovement(temp,plist,move-1);
     }
@@ -60,90 +75,40 @@ void cpuMoveRandom(gBoard *temp){
     plist = &list;
     createMove(plist);
 
-    if(temp->turn == 'w'){
+    if(getTurn(temp) == 'w'){
         checkWhite(temp,plist);
-        if(plist->countEatMove==0 && plist->countNormalMove==0){
-            temp->winner = 'b';
+        if(getCountEat(plist)==0 && getCountNormal(plist)==0){
+            selectWinner(temp);
             destroyMove(plist);
             return;
         }
         printf("\nWhite ");
-    }else if (temp->turn == 'b'){
+    }else if (getTurn(temp) == 'b'){
         checkBlack(temp, plist);
-        if(plist->countEatMove==0 && plist->countNormalMove==0){
-            temp->winner = 'w';
+        if(getCountEat(plist)==0 && getCountNormal(plist)==0){
+            selectWinner(temp);
             destroyMove(plist);
             return;
         }
         printf("\nBlack ");
     }
-    if(plist->countEatMove != 0){
-        printf("cpu eat move:\n");
-        move = rand() % plist->countEatMove;
-        printf("From: %d%c ", plist->eatMove[move][0]+1, plist->eatMove[move][1]+65);
-        printf("Eat: %d%c ", plist->eatMove[move][2]+1, plist->eatMove[move][3]+65);
-        printf("To: %d%c\n", plist->eatMove[move][4]+1, plist->eatMove[move][5]+65);
+    if(getCountEat(plist) != 0){
+        printEatMoves(plist,NULL);
+        move = rand() % getCountEat(plist);
+        printf("Final Choice Rand: %d \n", move);
         eatMovement(temp, plist, move);
 
     }else{
-        printf("cpu move:\n");
-        move = rand() % plist->countNormalMove;
-        printf("From: %d%c ", plist->normalMove[move][0]+1, plist->normalMove[move][1]+65);
-        printf("To: %d%c\n", plist->normalMove[move][2]+1, plist->normalMove[move][3]+65);
+        printNormMoves(plist,NULL);
+        move = rand() % getCountNormal(plist);
+        printf("Final choice rand: %d \n", move);
         normalMovement(temp,plist,move);
     }
 
     changeTurn(temp);
     destroyMove(plist);
 }
-float valueOfBoard(gBoard *temp,char side){         /*scans and assigns value to a board*/
-    int i,j,k;
-    float countBlack = 0, countWhite = 0;
 
-    for(i=0; i<7; i++){
-        for(j=0; j<7; j++){
-            for(k=0; k<3; k++){
-                if(temp->Board[i][j][k] == 'W'){
-                    if(k == 0)
-                        countWhite += 2;
-                    else if(k == 1 || k == 2)
-                        countWhite += 0.40;
-                }
-                if(temp->Board[i][j][k] == 'w'){
-                    if(k == 0)
-                        countWhite += 1;
-                    else if(k==1 || k == 2)
-                        countWhite += 0.20;
-                }
-                if(temp->Board[i][j][k] == 'B'){
-                    if(k == 0)
-                        countBlack += 2;
-                    else if(k == 1 || k == 2)
-                        countBlack += 0.40;
-                }
-                if(temp->Board[i][j][k] == 'b'){
-                    if(k == 0)
-                        countBlack += 1;
-                    else if(k==1 || k == 2)
-                        countBlack += 0.20;
-                }
-            }
-        }
-    }
-
-    if(side == 'w'){
-        if(countWhite>=countBlack)
-            return (float) ((countWhite * 100.0)/(countWhite + countBlack));
-        else
-            return (float) (-1)* ((countBlack * 100.0)/(countWhite + countBlack));
-    }else{
-        if(countBlack >= countWhite)
-            return (float) ((countBlack * 100.0)/(countWhite + countBlack));
-        else
-            return (float) (-1)*((countWhite * 100.0)/(countWhite + countBlack));
-    }
-
-}
 float cpuScanRec(int depth, gBoard *original, float *numberOfOutcomes, char side){
     gBoard dummy;
     gBoard *pdummy;
@@ -158,7 +123,7 @@ float cpuScanRec(int depth, gBoard *original, float *numberOfOutcomes, char side
     else if(getTurn(original) == 'b')
         checkBlack(original, plist);
 
-    if(plist->countEatMove == 0 && plist->countNormalMove == 0){
+    if(getCountEat(plist) == 0 && getCountNormal(plist) == 0){  /*lost situation*/
         *numberOfOutcomes += 1;
         destroyMove(plist);
         destroyBoard(original);
@@ -167,7 +132,7 @@ float cpuScanRec(int depth, gBoard *original, float *numberOfOutcomes, char side
         else
             return +100;
     }
-    if(depth == 0){
+    if(depth == 0){     /*reaches the end of depth*/
 
         float temp = valueOfBoard(original,side);
         *numberOfOutcomes +=1;
@@ -176,9 +141,9 @@ float cpuScanRec(int depth, gBoard *original, float *numberOfOutcomes, char side
         return temp;
     }
 
-    if(plist->countEatMove>1){
+    if(getCountEat(plist)>1){       /*the option below are used to go down each move decreasing depth*/
         float temp = 0;
-        for(i = 0; i< plist->countEatMove; i++){
+        for(i = 0; i< getCountEat(plist); i++){
             createBoard(pdummy);
             copyBoard(pdummy,original);
             eatMovement(pdummy,plist,i);
@@ -191,15 +156,15 @@ float cpuScanRec(int depth, gBoard *original, float *numberOfOutcomes, char side
         return temp;
 
     }
-    if(plist->countEatMove == 1){
+    if(getCountEat(plist) == 1){    
         eatMovement(original,plist,0);
         destroyMove(plist);
         changeTurn(original);
         return cpuScanRec(depth-1, original, numberOfOutcomes, side);
     }
-    if(plist->countNormalMove>1){
+    if(getCountNormal(plist)>1){
         float temp=0;
-        for(i = 0; i< plist->countNormalMove; i++){
+        for(i = 0; i< getCountNormal(plist); i++){
             createBoard(pdummy);
             copyBoard(pdummy,original);
             normalMovement(pdummy, plist,i);
@@ -211,7 +176,7 @@ float cpuScanRec(int depth, gBoard *original, float *numberOfOutcomes, char side
         destroyBoard(original);
         return temp;
     }
-    if(plist->countNormalMove == 1){
+    if(getCountNormal(plist) == 1){
         normalMovement(original,plist,0);
         destroyMove(plist);
         changeTurn(original);
@@ -236,33 +201,33 @@ void cpuScan(gBoard *temp, int depth){
     pOut = &outcomes;
     pdummy = &dummy;
     plist = &list;
-
+                            /*checks move*/
     createMove(plist);
-    if(temp->turn== 'w'){
+    if(getTurn(temp)== 'w'){
         checkWhite(temp,plist);
         printf("\nWhite ");
     }
-    else if(temp->turn == 'b'){
+    else if(getTurn(temp) == 'b'){
         checkBlack(temp,plist);
         printf("\nBlack ");
     }
 
-    if(plist->countEatMove == 0 && plist->countNormalMove == 0){
+    if(getCountEat(plist) == 0 && getCountNormal(plist) == 0){  /*no moves lost*/
         selectWinner(temp);
         printf("no moves Available.\n");
     }
-    else if(plist->countEatMove == 1){
+    else if(getCountEat(plist) == 1){   /*one move available so no need to calculate*/
         eatMovement(temp,plist,0);
         printEatMoves(plist,NULL);
 
     }
-    else if(plist->countEatMove == 0 && plist->countNormalMove == 1){
+    else if(getCountEat(plist) == 0 && getCountNormal(plist) == 1){ /*one move available*/
         normalMovement(temp,plist,0);
         printNormMoves(plist,NULL);
     }
-    else if(plist->countEatMove > 1){
-        move = malloc(plist->countEatMove * sizeof(float));
-        for(i=0; i<plist->countEatMove; i++){
+    else if(getCountEat(plist) > 1){        /*possible multiple eat moves start recursive function to calculate*/
+        move = malloc(getCountEat(plist) * sizeof(float));
+        for(i=0; i<getCountEat(plist); i++){
             createBoard(pdummy);
             copyBoard(pdummy, temp);
             eatMovement(pdummy,plist,i);
@@ -270,8 +235,8 @@ void cpuScan(gBoard *temp, int depth){
             move[i] =  (move[i] /outcomes);
             outcomes = 0;
         }
-        for(i = 0; i<plist->countEatMove;i++){
-            if(move[choice]<move[i])
+        for(i = 0; i<getCountEat(plist);i++){   /*chooses wich move to make from evaluation if top has 2 or more value*/
+            if(move[choice]<move[i])            /*random choise between those two are made*/
                 choice = i;
         }
         printEatMoves(plist,move);
@@ -279,9 +244,9 @@ void cpuScan(gBoard *temp, int depth){
         printf("\nFinal choice: %d\n", choice+1);
         eatMovement(temp, plist, choice);
     }
-    else if(plist->countNormalMove > 1){
-        move = malloc(plist->countNormalMove * sizeof(float));
-        for(i=0; i<plist->countNormalMove; i++){
+    else if(getCountNormal(plist) > 1){     /*possible multiple normal moves start recursive function to calculate*/
+        move = malloc(getCountNormal(plist) * sizeof(float));
+        for(i=0; i<getCountNormal(plist); i++){
             createBoard(pdummy);
             copyBoard(pdummy, temp);
             normalMovement(pdummy,plist,i);
@@ -289,7 +254,7 @@ void cpuScan(gBoard *temp, int depth){
             move[i] =  (move[i] /outcomes);
             outcomes = 0;
         }
-        for(i = 0; i< plist->countNormalMove;i++){
+        for(i = 0; i< getCountNormal(plist);i++){   /*choice between moves and random if same value*/
             if(move[choice]<move[i])
                 choice = i;
         }
@@ -314,7 +279,7 @@ float cpuEatRec(gBoard *original, int depth, int depthCount, float value, int *n
     movement list;
     movement *plist;
     int sign;
-    if(side == original->turn)
+    if(side == getTurn(original))
         sign = +1;
     else
         sign = -1;
@@ -323,12 +288,12 @@ float cpuEatRec(gBoard *original, int depth, int depthCount, float value, int *n
     pdummy = &dummy;
     createMove(plist);
 
-    if(original->turn == 'w')
+    if(getTurn(original) == 'w')    /*check*/
         checkWhite(original, plist);
-    else if(original->turn == 'b')
+    else if(getTurn(original) == 'b')
         checkBlack(original,plist);
 
-    if(plist->countEatMove == 0 && plist->countNormalMove == 0){
+    if(getCountEat(plist) == 0 && getCountNormal(plist) == 0){  /*no moves value +/- 100 then devided by depth*/
         if(side == original->turn)
             value -= 100;
         else
@@ -340,23 +305,23 @@ float cpuEatRec(gBoard *original, int depth, int depthCount, float value, int *n
         *numberOfOutcomes +=1;
         return value;
     }
-    if(depth == 0){
+    if(depth == 0){     /*end depth*/
         *numberOfOutcomes += 1;
         destroyBoard(original);
         destroyMove(plist);
         return value/depthCount;
     }
-    if(plist->countEatMove==1){
+    if(getCountEat(plist)==1){      /*one eat choice has an increas or decreas of value*/
         eatMovement(original,plist,0);
         destroyMove(plist);
         changeTurn(original);
         return cpuEatRec(original,depth-1, depthCount+1,value+(sign * 40),numberOfOutcomes,side);
     }
-    if(plist->countEatMove>1){
+    if(getCountEat(plist)>1){   /*multiple choice inc/decr*/
         float temp = 0;
         int i;
 
-        for(i=0;i<plist->countEatMove;i++){
+        for(i=0;i<getCountEat(plist);i++){
             createBoard(pdummy);
             copyBoard(pdummy,original);
             eatMovement(pdummy,plist,i);
@@ -367,18 +332,18 @@ float cpuEatRec(gBoard *original, int depth, int depthCount, float value, int *n
         destroyMove(plist);
         return temp;
     }
-    if(plist->countNormalMove == 1){
+    if(getCountNormal(plist) == 1){     /*normal move value stays the same*/
         normalMovement(original,plist,0);
         destroyMove(plist);
         changeTurn(original);
         return cpuEatRec(original,depth-1,depthCount+1,value,numberOfOutcomes,side);
     }
-    if(plist->countNormalMove > 1){
+    if(getCountNormal(plist) > 1){  /*normal move value same*/
 
         float temp = 0;
         int i;
 
-        for(i=0;i<plist->countNormalMove;i++){
+        for(i=0;i<getCountNormal(plist);i++){
             createBoard(pdummy);
             copyBoard(pdummy,original);
             normalMovement(pdummy,plist,i);
@@ -413,30 +378,30 @@ void cpuEat(gBoard *temp, int depth){
     pout = &outcomes;
 
     createMove(plist);
-    if(temp->turn== 'w'){
+    if(getTurn(temp)== 'w'){        /*check*/
         checkWhite(temp,plist);
         printf("\nWhite ");
     }
-    else if(temp->turn == 'b'){
+    else if(getTurn(temp) == 'b'){
         checkBlack(temp,plist);
         printf("\nBlack ");
     }
 
-    if(plist->countEatMove == 0 && plist->countNormalMove == 0){
+    if(getCountEat(plist) == 0 && getCountNormal(plist) == 0){  /*lost*/
         selectWinner(temp);
         printf("no moves Available.\n");
     }
-    else if(plist->countEatMove == 1){
+    else if(getCountEat(plist) == 1){   /*one move so no calculation*/
         eatMovement(temp,plist,0);
         printEatMoves(plist,NULL);
     }
-    else if(plist->countEatMove == 0 && plist->countNormalMove == 1){
+    else if(getCountEat(plist) == 0 && getCountNormal(plist) == 1){     /*one move so no calculation*/
         normalMovement(temp,plist,0);
         printNormMoves(plist,NULL);
     }
-    else if(plist->countEatMove > 1){
-        move = malloc(plist->countEatMove * sizeof(float));
-        for(j=0;j<plist->countEatMove; j++){
+    else if(getCountEat(plist) > 1){    /*eat moves start recursive function*/
+        move = malloc(getCountEat(plist) * sizeof(float));
+        for(j=0;j<getCountEat(plist); j++){
             createBoard(pdummy);
             copyBoard(pdummy,temp);
             eatMovement(pdummy,plist,j);
@@ -446,7 +411,7 @@ void cpuEat(gBoard *temp, int depth){
             outcomes = 0;
         }
 
-        for(j=0; j<plist->countEatMove; j++){
+        for(j=0; j<getCountEat(plist); j++){        /*choice based on evaluation*/
             if(move[choice]<move[j])
                 choice = j;
 
@@ -457,9 +422,9 @@ void cpuEat(gBoard *temp, int depth){
         eatMovement(temp,plist,choice);
 
     }
-    else if(plist->countNormalMove>1){
-        move = malloc(plist->countNormalMove * sizeof(float));
-        for(j=0;j<plist->countNormalMove; j++){
+    else if(getCountNormal(plist)>1){   /*normal moves start recursive function*/
+        move = malloc(getCountNormal(plist) * sizeof(float));
+        for(j=0;j<getCountNormal(plist); j++){
             createBoard(pdummy);
             copyBoard(pdummy,temp);
             normalMovement(pdummy,plist,j);
@@ -468,7 +433,7 @@ void cpuEat(gBoard *temp, int depth){
             move[j] = move[j] / outcomes;
             outcomes = 0;
         }
-        for(j=0; j<plist->countNormalMove; j++){
+        for(j=0; j<getCountNormal(plist); j++){     /*choice based on evaluation*/
             if(move[choice]<move[j])
                 choice = j;
         }
@@ -483,4 +448,3 @@ void cpuEat(gBoard *temp, int depth){
     changeTurn(temp);
 
 }
-

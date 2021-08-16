@@ -130,3 +130,12 @@ void randomChoice(movement *temp, float *move, bool type, int *choice){
     }
 }
 
+int getCountEat(movement *temp){ return temp->countEatMove; }
+int getCountNormal(movement *temp){ return temp->countNormalMove; }
+
+int getMoveEat(movement *temp,int move, int pos){
+    return temp->eatMove[move][pos];
+}
+int getMoveNormal(movement *temp, int move, int pos){
+    return temp->normalMove[move][pos];
+}

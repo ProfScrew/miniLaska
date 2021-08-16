@@ -8,7 +8,7 @@
 #include "participants.h"
 
 
-void gameManager2(gBoard *pgame, int depthS, int depthE, int first, int second);
+void gameControl(gBoard *pgame, int depthS, int depthE, int first, int second);
 void gameManager(int depthS, int depthE);
 void testManager(int tests, int first, int second, int depthS, int depthE, int *countFirst, int *countSecond, int *countDraw);
 void testCpu(int depthS, int depthE);
@@ -16,7 +16,6 @@ void testCpu(int depthS, int depthE);
 
 int main(int argc, char const *argv[])
 {
-    int depth = 6;
     int depthS =4, depthE=4;
     int choice;
     int tests, side;
@@ -25,7 +24,7 @@ int main(int argc, char const *argv[])
 
     while(exit == false){
         printf("\nWelcome to miniLaska \n");
-        printf("Menu:\n1.Play Game\n2.Test CPU vs CPU\n3.Setting depth CPU\n4.Exit\n");
+        printf("Menu:\n1.Play Game\n2.Test CPU vs CPU\n3.Setting depth CPU\n4.Exit\nYour choice:");
         scanf("%d", &choice);
         switch (choice)
         {
@@ -39,10 +38,16 @@ int main(int argc, char const *argv[])
             
             printf("\nCurrent depth of the cpus are: CpuScan:%d CpuEat: %d\n", depthS, depthE);
             
-            scanf("CpuScan new value: %d",&depthS);
-            scanf("CpuEat new value %d", &depthE);
+            printf("CpuScan new value: ");
+            scanf("%d",&depthS);
+            printf("\nCpuEat new value ");
+            scanf("%d", &depthE);
 
-
+            if(depthE <1 || depthS<1){
+                printf("\n Value not valid, all the depth have been changed to default.");
+                depthS = 4;
+                depthE = 4;
+            }
 
             break;
         case 4:
@@ -59,9 +64,9 @@ int main(int argc, char const *argv[])
 }
 
 
-void gameManager2(gBoard *pgame, int depthS, int depthE, int first, int second){
+void gameControl(gBoard *pgame, int depthS, int depthE, int first, int second){
     int count = 0;
-    while (pgame->winner == 'n' && count < 100)
+    while (getWinner(pgame) == 'n' && count < 100)
     {
         showBoard(pgame);
         switch (first)
@@ -84,7 +89,7 @@ void gameManager2(gBoard *pgame, int depthS, int depthE, int first, int second){
             break;
         }
         count++;
-        if(pgame->winner == 'n' && count<100){
+        if(getWinner(pgame) == 'n' && count<100){
             showBoard(pgame);
             switch (second)
             {
@@ -108,7 +113,7 @@ void gameManager2(gBoard *pgame, int depthS, int depthE, int first, int second){
             count++;
         }
     }
-    if(count == 100 && pgame->winner == 'n')
+    if(count == 100 && getWinner(pgame) == 'n')
         drawGame(pgame);
 }
 
@@ -122,12 +127,12 @@ void gameManager(int depthS, int depthE){
     initBoard(pgame);
     initPlayers(pgame);
     printf("Who you want to play against?\n");
-    printf("1. Player vs Player\n2. Player vs Random\n3. Player vs CPU Scan \n4.Player vs CPU Eat \n5. Exit\n");
+    printf("1. Player vs Player\n2. Player vs Random\n3. Player vs CPU Scan \n4. Player vs CPU Eat \n5. Exit\n");
     scanf("%d",&choice);
     switch (choice)
     {
     case 1:     /*player vs player*/
-        gameManager2(pgame,depthS,depthE,1,1);
+        gameControl(pgame,depthS,depthE,1,1);
     break;
 
     case 2:     /*player vs cpu rand*/
@@ -136,11 +141,11 @@ void gameManager(int depthS, int depthE){
         switch (choice)
         {
         case 1:     /*player is white*/
-            gameManager2(pgame,depthS,depthE,1,2);
+            gameControl(pgame,depthS,depthE,1,2);
             break;
 
         case 2:     /*player is black*/
-            gameManager2(pgame,depthS,depthE,2,1);
+            gameControl(pgame,depthS,depthE,2,1);
             break;
         default:
             printf("Unkown side.");
@@ -153,11 +158,11 @@ void gameManager(int depthS, int depthE){
         scanf("%d",&choice);
         switch (choice){
             case 1: /*player is white*/
-                gameManager2(pgame,depthS,depthE,1,3);
+                gameControl(pgame,depthS,depthE,1,3);
                 break;
 
             case 2: /*player is black*/
-                gameManager2(pgame,depthS,depthE,3,1);
+                gameControl(pgame,depthS,depthE,3,1);
                 break;
 
             default:
@@ -171,11 +176,11 @@ void gameManager(int depthS, int depthE){
         scanf("%d",&choice);
         switch (choice){
             case 1: /*player is white*/
-                gameManager2(pgame,depthS,depthE,1,4);
+                gameControl(pgame,depthS,depthE,1,4);
                 break;
 
             case 2: /*player is black*/
-                gameManager2(pgame,depthS,depthE,4,1);
+                gameControl(pgame,depthS,depthE,4,1);
                 break;
 
             default:
@@ -192,11 +197,11 @@ void gameManager(int depthS, int depthE){
         printf("Invalid input");
     break;
     }
-    if(pgame->winner == 'd')
+    if(getWinner(pgame) == 'd')
         printf("\nDraw Game");
-    else if(pgame->winner == 'w')
+    else if(getWinner(pgame) == 'w')
         printf("\nWinner is White");
-    else if(pgame->winner == 'b')
+    else if(getWinner(pgame) == 'b')
         printf("\nWinner is Black");
 
     destroyBoard(pgame);
@@ -216,7 +221,7 @@ void testManager(int tests, int first, int second, int depthS, int depthE, int *
     for(i = 0; i < tests; i++){
         initBoard(pTest);
         initPlayers(pTest);
-        gameManager2(pTest,depthS,depthE,first,second);
+        gameControl(pTest,depthS,depthE,first,second);
 
         if(getWinner(pTest) == 'd')
             *countDraw = *countDraw + 1;
