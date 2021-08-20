@@ -1,0 +1,89 @@
+\hypertarget{index_intro_sec}{}\doxysection{Introduction}\label{index_intro_sec}
+The mini\+Laska is a small version of the original game \href{http://www.laska.org}{\texttt{ http\+://www.\+laska.\+org}}
+
+Limitation of the game\+:
+
+
+\begin{DoxyItemize}
+\item can conquer/eat only once per turn
+\item the max height of the stack is 3 max, if limit exceded the pawn is removed
+\item if none of the players wins in 100 moves the game is a draw
+\end{DoxyItemize}\hypertarget{index_compile_sec}{}\doxysection{Compile}\label{index_compile_sec}
+In this section will stated how to make the game run and the requiments for it.\hypertarget{index_require_sec}{}\doxysubsection{Required gcc}\label{index_require_sec}
+Make sure that you have gcc installed. If its not installed, here is a small guide on how to do it using a terminal\+:
+
+
+\begin{DoxyEnumerate}
+\item Start by updating the packages list\+: \begin{DoxyVerb}  sudo apt update
+\end{DoxyVerb}
+
+\item Install the {\bfseries{build-\/essential}}\+: \begin{DoxyVerb}  sudo apt install build-essential
+\end{DoxyVerb}
+
+\item Validate if installed using the following comand \begin{DoxyVerb}  gcc --version
+\end{DoxyVerb}
+ 
+\end{DoxyEnumerate}\hypertarget{index_compilatio_sec}{}\doxysubsection{Compilation}\label{index_compilatio_sec}
+To compile the program make use of the {\bfseries{Makefile}} by using only the simple comand in the same folder\+: \begin{DoxyVerb}     make
+\end{DoxyVerb}
+ This comand will execute the following command to compile the game\+: \begin{DoxyVerb}     gcc -ansi -pedantic -Wno-unused-result -O2 src/main.c src/board.c src/move.c src/participants.c -o miniLaska
+\end{DoxyVerb}
+ It has the following parameters\+:
+
+-\/ansi\+: tells the compiler to implement the ANSI language option. This turns off certain \char`\"{}features\char`\"{} of GCC which are incompatible with the ANSI standard.
+
+-\/pedantic used in conjunction with -\/ansi, this tells the compiler to be adhere strictly to the ANSI standard, rejecting any code which is not compliant.
+
+-\/Wno-\/unused-\/result means that it will ignore the unused result warning, which occurs during the usage of the \uline{scanf()} comand\hypertarget{index_exe_sec}{}\doxysubsection{Execution}\label{index_exe_sec}
+To execute the program use the file {\bfseries{mini\+Laska}} created by the previous command. \begin{DoxyVerb}     ./miniLaska
+\end{DoxyVerb}
+ \hypertarget{index_menu_sec}{}\doxysection{Main Menu}\label{index_menu_sec}
+When the program is started the menu will appear with the following options\+:\hypertarget{index_game_sec}{}\doxysubsection{Play Game}\label{index_game_sec}
+Allows the user to play the game. The user has then the following choice\+:
+
+
+\begin{DoxyItemize}
+\item Player vs Player
+\item Player vs Random
+\item Player vs CPU Scan
+\item Player vs CPU Eat
+\end{DoxyItemize}
+
+And after choosing the following game will start.
+
+\begin{DoxyNote}{Note}
+Also the user has the choice of which side he wants to play.
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+If the user during the game makes 5 mistakes consecutively(inserts invalid number) the program will terminate
+\end{DoxyWarning}
+\hypertarget{index_test_sec}{}\doxysubsection{Test CPU vs CPU}\label{index_test_sec}
+This option allows user to test the cpus and see the resault.
+
+To use this the user need to insert the number of tests he wants to perform
+
+and what type of test.
+
+There are two types of test\+:
+
+
+\begin{DoxyItemize}
+\item single\+: Here the user will have to choose the cpus that will fight each other
+\item full\+: This option will test all the combination of the cpus so the number of test will be multiplied by 9
+\end{DoxyItemize}
+
+The three cpus are\+:
+
+
+\begin{DoxyEnumerate}
+\item \mbox{\hyperlink{participants_8c_a2d72fbbec92d93d750b06af8a30f8f45}{cpu\+Move\+Random}}\+: it randomly chooses the option.
+\item \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}}\+: analizes in depth all possibility and gives each posibility towards the end a value (\mbox{\hyperlink{group__cpuScan__group_ga2294cbaf993c07d8bfeca0c801f52d92}{value\+Of\+Board}}), these values are then added and devided by the number of outcomes and the end the cpu chooses the best outcome.
+\item \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}}\+: analizes in depth all posibility and if there is an capture a certain value is added after that che cpu will determine the option with the highest value of captures and choose it.
+\end{DoxyEnumerate}
+
+\begin{DoxyNote}{Note}
+The draw function was implemente because on some positions the cpus entered a loop
+\end{DoxyNote}
+\hypertarget{index_setting_sec}{}\doxysubsection{Setting depth CPU}\label{index_setting_sec}
+Here the user can setup the depth of each cpu. If the depth is invalid it will go to the default settings.\hypertarget{index_exit_sec}{}\doxysubsection{Exit}\label{index_exit_sec}
+Terminates the program. 

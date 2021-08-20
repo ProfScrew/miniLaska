@@ -1,0 +1,128 @@
+\hypertarget{board_8c}{}\doxysection{src/board.c File Reference}
+\label{board_8c}\index{src/board.c@{src/board.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../headers/board.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../headers/move.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{board_8c_a50f2edd458e851193383d5b68b88fae8}{create\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Allocates space in memory for board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{board_8c_ab334f4f8b629d7a5454908eedf57b1fe}{destroy\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Frees memory of the board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{board_8c_a54fbaba7e1742d95362cc1daa96ec1c2}{init\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Fills board with empty chars \char`\"{} \char`\"{} and \char`\"{}\#\char`\"{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{board_8c_a0eaa83b767470562fbb1569009c9de92}{init\+Players}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Fills board with players. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{board_8c_ade4c25522ae9e5db3aef66aba3c2c23a}{copy\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$copy, \mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$original)
+\begin{DoxyCompactList}\small\item\em Copies board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__utility__group_ga22fe83d2c0091deced22afc83a99c816}{change\+Turn}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Changes turn. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{group__utility__group_ga2e2a6bead4ad057c983bd086251a24d2}{get\+Turn}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\item 
+char \mbox{\hyperlink{group__utility__group_gafd6289519143ec4c7236ec3f5a4e900d}{get\+Winner}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\item 
+void \mbox{\hyperlink{group__utility__group_ga7231567a47bdf43675eb80f696956648}{select\+Winner}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Based on whos turn it is, it determines the winner if asked. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__utility__group_ga9ad8391229d313044ab6efdb221fa956}{draw\+Game}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Changes winner to \textquotesingle{}d\textquotesingle{} draw. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__movement__group_gaaa1dbb1d043fe7404740618b1297f770}{normal\+Movement}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list, int move)
+\begin{DoxyCompactList}\small\item\em Manages a normal movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__movement__group_gad356d0536ab5865deadb10acd0acdb07}{eat\+Movement}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list, int move)
+\begin{DoxyCompactList}\small\item\em Manages a capture movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__check__group_ga6ff79dc455d80c90bdddc22b18ad0203}{check\+White}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Checks available movement for White. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__check__group_gafe8888dd670ca53adf2f3226182469b1}{check\+Black}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Checks available movement for Black. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__cpuScan__group_ga2294cbaf993c07d8bfeca0c801f52d92}{value\+Of\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, char side)
+\begin{DoxyCompactList}\small\item\em Check board and gives it a value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{board_8c_ac9ea3f0b3e8b94941e1bb52886f1dd06}{show\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Output to terminal the board. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{board_8c_a2810cd18b58aef4008706c50c8bb8c25}{read\+Game}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Read game from .txt file Used to debug some cases when are bugs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{board_8c_ade4c25522ae9e5db3aef66aba3c2c23a}\label{board_8c_ade4c25522ae9e5db3aef66aba3c2c23a}} 
+\index{board.c@{board.c}!copyBoard@{copyBoard}}
+\index{copyBoard@{copyBoard}!board.c@{board.c}}
+\doxysubsubsection{\texorpdfstring{copyBoard()}{copyBoard()}}
+{\footnotesize\ttfamily void copy\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{copy,  }\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{original }\end{DoxyParamCaption})}
+
+
+
+Copies board. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em original} & origin of copy \\
+\hline
+{\em copy} & destination of copy\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+If one of boards is NULL then the program goes into error. 
+\end{DoxyNote}
+\mbox{\Hypertarget{board_8c_a50f2edd458e851193383d5b68b88fae8}\label{board_8c_a50f2edd458e851193383d5b68b88fae8}} 
+\index{board.c@{board.c}!createBoard@{createBoard}}
+\index{createBoard@{createBoard}!board.c@{board.c}}
+\doxysubsubsection{\texorpdfstring{createBoard()}{createBoard()}}
+{\footnotesize\ttfamily void create\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Allocates space in memory for board. 
+
+\mbox{\Hypertarget{board_8c_ab334f4f8b629d7a5454908eedf57b1fe}\label{board_8c_ab334f4f8b629d7a5454908eedf57b1fe}} 
+\index{board.c@{board.c}!destroyBoard@{destroyBoard}}
+\index{destroyBoard@{destroyBoard}!board.c@{board.c}}
+\doxysubsubsection{\texorpdfstring{destroyBoard()}{destroyBoard()}}
+{\footnotesize\ttfamily void destroy\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Frees memory of the board. 
+
+\mbox{\Hypertarget{board_8c_a54fbaba7e1742d95362cc1daa96ec1c2}\label{board_8c_a54fbaba7e1742d95362cc1daa96ec1c2}} 
+\index{board.c@{board.c}!initBoard@{initBoard}}
+\index{initBoard@{initBoard}!board.c@{board.c}}
+\doxysubsubsection{\texorpdfstring{initBoard()}{initBoard()}}
+{\footnotesize\ttfamily void init\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Fills board with empty chars \char`\"{} \char`\"{} and \char`\"{}\#\char`\"{}. 
+
+\mbox{\Hypertarget{board_8c_a0eaa83b767470562fbb1569009c9de92}\label{board_8c_a0eaa83b767470562fbb1569009c9de92}} 
+\index{board.c@{board.c}!initPlayers@{initPlayers}}
+\index{initPlayers@{initPlayers}!board.c@{board.c}}
+\doxysubsubsection{\texorpdfstring{initPlayers()}{initPlayers()}}
+{\footnotesize\ttfamily void init\+Players (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Fills board with players. 
+
+\mbox{\Hypertarget{board_8c_a2810cd18b58aef4008706c50c8bb8c25}\label{board_8c_a2810cd18b58aef4008706c50c8bb8c25}} 
+\index{board.c@{board.c}!readGame@{readGame}}
+\index{readGame@{readGame}!board.c@{board.c}}
+\doxysubsubsection{\texorpdfstring{readGame()}{readGame()}}
+{\footnotesize\ttfamily void read\+Game (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Read game from .txt file Used to debug some cases when are bugs. 
+
+\mbox{\Hypertarget{board_8c_ac9ea3f0b3e8b94941e1bb52886f1dd06}\label{board_8c_ac9ea3f0b3e8b94941e1bb52886f1dd06}} 
+\index{board.c@{board.c}!showBoard@{showBoard}}
+\index{showBoard@{showBoard}!board.c@{board.c}}
+\doxysubsubsection{\texorpdfstring{showBoard()}{showBoard()}}
+{\footnotesize\ttfamily void show\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Output to terminal the board. 
+

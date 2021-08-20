@@ -1,0 +1,131 @@
+\hypertarget{main_8h}{}\doxysection{headers/main.h File Reference}
+\label{main_8h}\index{headers/main.h@{headers/main.h}}
+
+
+Contains main menu and submenus.  
+
+
+{\ttfamily \#include \char`\"{}../headers/board.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../headers/move.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../headers/participants.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{main_8h_afa4fd5106ea42d737097bab63fe968d1}{game\+Control}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$pgame, int depthS, int depthE, int first, int second)
+\begin{DoxyCompactList}\small\item\em Function used to operate games between two entities. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8h_a68645dbbd44d6b46401f39b73cff5d8c}{game\+Manager}} (int depthS, int depthE)
+\begin{DoxyCompactList}\small\item\em Function that lets user decide who to play against. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8h_a5e7b7af88c46b092a6deae6b0ea0943b}{test\+Manager}} (int tests, int first, int second, int depthS, int depthE, int $\ast$count\+First, int $\ast$count\+Second, int $\ast$count\+Draw)
+\begin{DoxyCompactList}\small\item\em Applies the setting of the test and simulates games. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8h_a984cd4ba4d879355d7cdf72f01931358}{test\+Cpu}} (int depthS, int depthE)
+\begin{DoxyCompactList}\small\item\em Let user decide setting of the test. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains main menu and submenus. 
+
+\begin{DoxyAuthor}{Author}
+Maksym Novytskyy 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17/08/2021 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8h_afa4fd5106ea42d737097bab63fe968d1}\label{main_8h_afa4fd5106ea42d737097bab63fe968d1}} 
+\index{main.h@{main.h}!gameControl@{gameControl}}
+\index{gameControl@{gameControl}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{gameControl()}{gameControl()}}
+{\footnotesize\ttfamily void game\+Control (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{pgame,  }\item[{int}]{depthS,  }\item[{int}]{depthE,  }\item[{int}]{first,  }\item[{int}]{second }\end{DoxyParamCaption})}
+
+
+
+Function used to operate games between two entities. 
+
+Function controlls game and chooses the respective participant to play.
+
+
+\begin{DoxyParams}{Parameters}
+{\em pgame} & pointer to the board on which the game is played \\
+\hline
+{\em depthS} & depth used by the \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}} function \\
+\hline
+{\em depthE} & depth used by the \mbox{\hyperlink{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}{cpu\+Eat}} function \\
+\hline
+{\em first} & value used to decide first parcipiant(\+White) \\
+\hline
+{\em second} & value used to decide second participant(\char`\"{}\+Black\char`\"{})\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Playes the two parcipant function in a loop and checks if there is a winner or draw 
+\end{DoxyNote}
+\mbox{\Hypertarget{main_8h_a68645dbbd44d6b46401f39b73cff5d8c}\label{main_8h_a68645dbbd44d6b46401f39b73cff5d8c}} 
+\index{main.h@{main.h}!gameManager@{gameManager}}
+\index{gameManager@{gameManager}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{gameManager()}{gameManager()}}
+{\footnotesize\ttfamily void game\+Manager (\begin{DoxyParamCaption}\item[{int}]{depthS,  }\item[{int}]{depthE }\end{DoxyParamCaption})}
+
+
+
+Function that lets user decide who to play against. 
+
+After choosing the function calls \mbox{\hyperlink{main_8h_afa4fd5106ea42d737097bab63fe968d1}{game\+Control}} to play the game
+
+
+\begin{DoxyParams}{Parameters}
+{\em depthS} & depth used by the \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}} function \\
+\hline
+{\em depthE} & depth used by the \mbox{\hyperlink{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}{cpu\+Eat}} function \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{main_8h_a984cd4ba4d879355d7cdf72f01931358}\label{main_8h_a984cd4ba4d879355d7cdf72f01931358}} 
+\index{main.h@{main.h}!testCpu@{testCpu}}
+\index{testCpu@{testCpu}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{testCpu()}{testCpu()}}
+{\footnotesize\ttfamily void test\+Cpu (\begin{DoxyParamCaption}\item[{int}]{depthS,  }\item[{int}]{depthE }\end{DoxyParamCaption})}
+
+
+
+Let user decide setting of the test. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em depthS} & depth used by the \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}} function \\
+\hline
+{\em depthE} & depth used by the \mbox{\hyperlink{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}{cpu\+Eat}} function \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{main_8h_a5e7b7af88c46b092a6deae6b0ea0943b}\label{main_8h_a5e7b7af88c46b092a6deae6b0ea0943b}} 
+\index{main.h@{main.h}!testManager@{testManager}}
+\index{testManager@{testManager}!main.h@{main.h}}
+\doxysubsubsection{\texorpdfstring{testManager()}{testManager()}}
+{\footnotesize\ttfamily void test\+Manager (\begin{DoxyParamCaption}\item[{int}]{tests,  }\item[{int}]{first,  }\item[{int}]{second,  }\item[{int}]{depthS,  }\item[{int}]{depthE,  }\item[{int $\ast$}]{count\+First,  }\item[{int $\ast$}]{count\+Second,  }\item[{int $\ast$}]{count\+Draw }\end{DoxyParamCaption})}
+
+
+
+Applies the setting of the test and simulates games. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em tests} & number of tests to perform \\
+\hline
+{\em first} & first participant(\+White) \\
+\hline
+{\em second} & second participant(\+Black) \\
+\hline
+{\em depthS} & depth used by the \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}} function \\
+\hline
+{\em depthE} & depth used by the \mbox{\hyperlink{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}{cpu\+Eat}} function \\
+\hline
+{\em count\+First} & counter of White wins \\
+\hline
+{\em count\+Second} & counter of Black wins \\
+\hline
+{\em count\+Draw} & counter of Draws \\
+\hline
+\end{DoxyParams}

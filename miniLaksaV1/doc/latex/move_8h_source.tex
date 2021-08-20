@@ -1,0 +1,45 @@
+\hypertarget{move_8h_source}{}\doxysection{move.\+h}
+\label{move_8h_source}\index{headers/move.h@{headers/move.h}}
+\mbox{\hyperlink{move_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#ifndef MOVE\_H}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#define MOVE\_H}}
+\DoxyCodeLine{9 \textcolor{comment}{/*structure wich contains list of available movement of a player after scan*/}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{18 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structavailableMovement}{availableMovement}}\{}
+\DoxyCodeLine{19     \textcolor{keywordtype}{int} \mbox{\hyperlink{structavailableMovement_a1cad841a634aa98df7ca49ec0d3a0f96}{countEatMove}};       }
+\DoxyCodeLine{20     \textcolor{keywordtype}{int} \mbox{\hyperlink{structavailableMovement_a260ef6dbc4871973a80ff4b36f8337c2}{countNormalMove}};}
+\DoxyCodeLine{24     \textcolor{keywordtype}{int} **\mbox{\hyperlink{structavailableMovement_a9026a85dc4ceae9f286899c13debb8eb}{eatMove}};          }
+\DoxyCodeLine{28     \textcolor{keywordtype}{int} **\mbox{\hyperlink{structavailableMovement_a8ca420aa109a4d6523469590d5e1e63d}{normalMove}};       }
+\DoxyCodeLine{29 \}\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{34 \textcolor{keywordtype}{void} \mbox{\hyperlink{move_8h_a4289a1819c7c0c6fa70bacd3e80fb0ab}{createMove}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{comment}{/*if movement is possible its going to be registered with those two functions with all the necessary coordinates*/}}
+\DoxyCodeLine{42 \textcolor{keywordtype}{void} \mbox{\hyperlink{move_8h_a7c9fab3b47998438f2b0ffb5ba5c38e3}{regNormalMove}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp, \textcolor{keywordtype}{int} fromI, \textcolor{keywordtype}{int} fromJ, \textcolor{keywordtype}{int} toI, \textcolor{keywordtype}{int} toJ); }
+\DoxyCodeLine{48 \textcolor{keywordtype}{void} \mbox{\hyperlink{move_8h_a2f76029f5cebdb7415d13d4c979c285a}{regEatMove}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp, \textcolor{keywordtype}{int} fromI, \textcolor{keywordtype}{int} fromJ,\textcolor{keywordtype}{int} eatI, \textcolor{keywordtype}{int} eatJ, \textcolor{keywordtype}{int} toI, \textcolor{keywordtype}{int} toJ);}
+\DoxyCodeLine{52 \textcolor{keywordtype}{void} \mbox{\hyperlink{move_8h_ac2a02eaa7aee4941e575917dcec6b7ce}{destroyMove}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{58 \textcolor{keywordtype}{void} \mbox{\hyperlink{move_8h_a45360e8ff13142eac61e40397d6982af}{seeMove}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{comment}{/*functions used to display movement to the user*/}}
+\DoxyCodeLine{61 \textcolor{comment}{/*used by player functions and cpus with options of displaying value of the move*/}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{70 \textcolor{keywordtype}{void} \mbox{\hyperlink{move_8h_a660b69fa8d7020b51d9e200b30a82ea8}{printNormMoves}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp, \textcolor{keywordtype}{float} *move);}
+\DoxyCodeLine{78 \textcolor{keywordtype}{void} \mbox{\hyperlink{move_8h_a3c252190a69a136682609b90c133cc70}{printEatMoves}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp, \textcolor{keywordtype}{float} *move);}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{comment}{/*used by cpus when it has situations with equals values*/}}
+\DoxyCodeLine{81 \textcolor{comment}{/*it choses random between the N choices with same value*/}}
+\DoxyCodeLine{82 \textcolor{comment}{/*in this way the games are not all the same */}}
+\DoxyCodeLine{97 \textcolor{keywordtype}{int} \mbox{\hyperlink{move_8h_ae1be3cf8a3f00dccc98f29635b0732ca}{randomChoice}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp, \textcolor{keywordtype}{float} *move, \textcolor{keywordtype}{bool} type, \textcolor{keywordtype}{int} choice);}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{comment}{/*utility function*/}}
+\DoxyCodeLine{105 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__utilitymove__group_ga29e4e4a88159a03d83e0218e90862606}{getCountEat}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp);}
+\DoxyCodeLine{106 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__utilitymove__group_gae8937004bf6516cceb559898f7ecabcc}{getCountNormal}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__utilitymove__group_gab6ef9f2cf6e2753922d5cd0c33afc0f8}{getMoveEat}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp, \textcolor{keywordtype}{int} move, \textcolor{keywordtype}{int} pos);}
+\DoxyCodeLine{109 \textcolor{keywordtype}{int} \mbox{\hyperlink{group__utilitymove__group_gae46b4f98e135b3e821d114a6cad0c5de}{getMoveNormal}}(\mbox{\hyperlink{structavailableMovement}{movement}} *temp, \textcolor{keywordtype}{int} move, \textcolor{keywordtype}{int} pos);}
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,143 @@
+\hypertarget{group__Functions}{}\doxysection{that move the peaces on the board}
+\label{group__Functions}\index{that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__Functions_gaaa1dbb1d043fe7404740618b1297f770}{normal\+Movement}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list, int move)
+\begin{DoxyCompactList}\small\item\em Manages a normal movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Functions_gad356d0536ab5865deadb10acd0acdb07}{eat\+Movement}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list, int move)
+\begin{DoxyCompactList}\small\item\em Manages a capture movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Functions_ga6ff79dc455d80c90bdddc22b18ad0203}{check\+White}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list)
+\begin{DoxyCompactList}\small\item\em Checks available movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__Functions_gafe8888dd670ca53adf2f3226182469b1}{check\+Black}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list)
+\item 
+float \mbox{\hyperlink{group__Functions_ga2294cbaf993c07d8bfeca0c801f52d92}{value\+Of\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, char side)
+\item 
+void \mbox{\hyperlink{group__Functions_gac9ea3f0b3e8b94941e1bb52886f1dd06}{show\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\item 
+void \mbox{\hyperlink{group__Functions_ga2810cd18b58aef4008706c50c8bb8c25}{read\+Game}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$$\ast$$\ast$ \mbox{\hyperlink{group__Functions_gac7c9d11268be3ab093dc0aa3b4ca7ee1}{game\+Board\+::\+Board}}
+\begin{DoxyCompactList}\small\item\em Pointer of the 3d array that contains the board. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{group__Functions_ga0eff335730d8741218e01cc72f43815a}{game\+Board\+::winner}}
+\begin{DoxyCompactList}\small\item\em Keeps track of the winner\+: \textquotesingle{}n\textquotesingle{} none, \textquotesingle{}w\textquotesingle{} white, \textquotesingle{}b\textquotesingle{} black, \textquotesingle{}d\textquotesingle{} draw. \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{group__Functions_gae49a78d2490c8762f5731e2b2728e347}{game\+Board\+::turn}}
+\begin{DoxyCompactList}\small\item\em Keeps track of whos turn it is. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__Functions_gafe8888dd670ca53adf2f3226182469b1}\label{group__Functions_gafe8888dd670ca53adf2f3226182469b1}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!checkBlack@{checkBlack}}
+\index{checkBlack@{checkBlack}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{checkBlack()}{checkBlack()}}
+{\footnotesize\ttfamily void check\+Black (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{list }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{group__Functions_ga6ff79dc455d80c90bdddc22b18ad0203}\label{group__Functions_ga6ff79dc455d80c90bdddc22b18ad0203}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!checkWhite@{checkWhite}}
+\index{checkWhite@{checkWhite}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{checkWhite()}{checkWhite()}}
+{\footnotesize\ttfamily void check\+White (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Checks available movement. 
+
+Checks and saves them using \#reg\+Normalmove \mbox{\Hypertarget{group__Functions_gad356d0536ab5865deadb10acd0acdb07}\label{group__Functions_gad356d0536ab5865deadb10acd0acdb07}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!eatMovement@{eatMovement}}
+\index{eatMovement@{eatMovement}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{eatMovement()}{eatMovement()}}
+{\footnotesize\ttfamily void eat\+Movement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{list,  }\item[{int}]{move }\end{DoxyParamCaption})}
+
+
+
+Manages a capture movement. 
+
+Captures, and also takes care of promotion
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & board on which the function is workin on \\
+\hline
+{\em list} & pointer to the list that contains information on all possible capture/eat \\
+\hline
+{\em move} & which of the movement is choosen \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__Functions_gaaa1dbb1d043fe7404740618b1297f770}\label{group__Functions_gaaa1dbb1d043fe7404740618b1297f770}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!normalMovement@{normalMovement}}
+\index{normalMovement@{normalMovement}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{normalMovement()}{normalMovement()}}
+{\footnotesize\ttfamily void normal\+Movement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{list,  }\item[{int}]{move }\end{DoxyParamCaption})}
+
+
+
+Manages a normal movement. 
+
+Moves the peaces, and also takes care of promotion
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & board on which the function is workin on \\
+\hline
+{\em list} & pointer to the list that contains information on all possible movement \\
+\hline
+{\em move} & which of the movement is choosen \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__Functions_ga2810cd18b58aef4008706c50c8bb8c25}\label{group__Functions_ga2810cd18b58aef4008706c50c8bb8c25}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!readGame@{readGame}}
+\index{readGame@{readGame}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{readGame()}{readGame()}}
+{\footnotesize\ttfamily void read\+Game (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{group__Functions_gac9ea3f0b3e8b94941e1bb52886f1dd06}\label{group__Functions_gac9ea3f0b3e8b94941e1bb52886f1dd06}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!showBoard@{showBoard}}
+\index{showBoard@{showBoard}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{showBoard()}{showBoard()}}
+{\footnotesize\ttfamily void show\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{group__Functions_ga2294cbaf993c07d8bfeca0c801f52d92}\label{group__Functions_ga2294cbaf993c07d8bfeca0c801f52d92}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!valueOfBoard@{valueOfBoard}}
+\index{valueOfBoard@{valueOfBoard}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{valueOfBoard()}{valueOfBoard()}}
+{\footnotesize\ttfamily float value\+Of\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{char}]{side }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{group__Functions_gac7c9d11268be3ab093dc0aa3b4ca7ee1}\label{group__Functions_gac7c9d11268be3ab093dc0aa3b4ca7ee1}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!Board@{Board}}
+\index{Board@{Board}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{Board}{Board}}
+{\footnotesize\ttfamily char$\ast$$\ast$$\ast$ game\+Board\+::\+Board}
+
+
+
+Pointer of the 3d array that contains the board. 
+
+\mbox{\Hypertarget{group__Functions_gae49a78d2490c8762f5731e2b2728e347}\label{group__Functions_gae49a78d2490c8762f5731e2b2728e347}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!turn@{turn}}
+\index{turn@{turn}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{turn}{turn}}
+{\footnotesize\ttfamily char game\+Board\+::turn}
+
+
+
+Keeps track of whos turn it is. 
+
+\mbox{\Hypertarget{group__Functions_ga0eff335730d8741218e01cc72f43815a}\label{group__Functions_ga0eff335730d8741218e01cc72f43815a}} 
+\index{that move the peaces on the board@{that move the peaces on the board}!winner@{winner}}
+\index{winner@{winner}!that move the peaces on the board@{that move the peaces on the board}}
+\doxysubsubsection{\texorpdfstring{winner}{winner}}
+{\footnotesize\ttfamily char game\+Board\+::winner}
+
+
+
+Keeps track of the winner\+: \textquotesingle{}n\textquotesingle{} none, \textquotesingle{}w\textquotesingle{} white, \textquotesingle{}b\textquotesingle{} black, \textquotesingle{}d\textquotesingle{} draw. 
+

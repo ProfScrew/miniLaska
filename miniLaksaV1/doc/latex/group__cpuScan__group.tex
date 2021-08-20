@@ -1,0 +1,92 @@
+\hypertarget{group__cpuScan__group}{}\doxysection{Function used by cpu\+Scan}
+\label{group__cpuScan__group}\index{Function used by cpuScan@{Function used by cpuScan}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{group__cpuScan__group_ga2294cbaf993c07d8bfeca0c801f52d92}{value\+Of\+Board}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, char side)
+\begin{DoxyCompactList}\small\item\em Check board and gives it a value. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__cpuScan__group_ga23e967ede87ba6c5e161e48fbb9df68e}{cpu\+Scan\+Rec}} (int depth, \mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$original, float $\ast$number\+Of\+Outcomes, char side)
+\begin{DoxyCompactList}\small\item\em Recursive function for the Cpu Scan. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, int depth)
+\begin{DoxyCompactList}\small\item\em Cpu that goes through all combinations and at the end scans boards. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}\label{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}} 
+\index{Function used by cpuScan@{Function used by cpuScan}!cpuScan@{cpuScan}}
+\index{cpuScan@{cpuScan}!Function used by cpuScan@{Function used by cpuScan}}
+\doxysubsubsection{\texorpdfstring{cpuScan()}{cpuScan()}}
+{\footnotesize\ttfamily void cpu\+Scan (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+
+
+Cpu that goes through all combinations and at the end scans boards. 
+
+This function checks available movement. If there is none the its game lost, if one move available it plays it without calling the recursive function.
+
+But if there is more then one available movement it calls the revursive function for each of available movement that calculates the value of the movement.
+
+After its done it picks the move with the highest value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & Board where game is played. \\
+\hline
+{\em depth} & Depth used by recursive function. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__cpuScan__group_ga23e967ede87ba6c5e161e48fbb9df68e}\label{group__cpuScan__group_ga23e967ede87ba6c5e161e48fbb9df68e}} 
+\index{Function used by cpuScan@{Function used by cpuScan}!cpuScanRec@{cpuScanRec}}
+\index{cpuScanRec@{cpuScanRec}!Function used by cpuScan@{Function used by cpuScan}}
+\doxysubsubsection{\texorpdfstring{cpuScanRec()}{cpuScanRec()}}
+{\footnotesize\ttfamily float cpu\+Scan\+Rec (\begin{DoxyParamCaption}\item[{int}]{depth,  }\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{original,  }\item[{float $\ast$}]{number\+Of\+Outcomes,  }\item[{char}]{side }\end{DoxyParamCaption})}
+
+
+
+Recursive function for the Cpu Scan. 
+
+Goes through every possible move to a certain depth and scans the end cases.
+
+Cases\+:
+\begin{DoxyItemize}
+\item If no possible movement it registeres that the game is lost/won and saves value.
+\item If depth is zero it scans the board and gets a value.
+\item If the depth is not zero it checks the moves and recals the \mbox{\hyperlink{group__cpuScan__group_ga23e967ede87ba6c5e161e48fbb9df68e}{cpu\+Scan\+Rec}} and decreases depth.
+\end{DoxyItemize}
+
+At the end the function returns the value of the move.
+
+\begin{DoxyNote}{Note}
+The function also keeps track of the number of outcomes so after its done, the resault is devided by the outcomes So the cpu doesn\textquotesingle{}t prioritize the longest game but the more advantagious.
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parameters}
+{\em depth} & It checks how many depth moves it hase to performa, at each new call of function it decreases by one. \\
+\hline
+{\em original} & Contains the Board on wich the function is working on, if it calls \mbox{\hyperlink{group__cpuScan__group_ga23e967ede87ba6c5e161e48fbb9df68e}{cpu\+Scan\+Rec}} before that it creates a copy of the board so it doesnt change the original. \\
+\hline
+{\em number\+Of\+Outcomes} & Keeps track of outcomes. \\
+\hline
+{\em side} & Keeps track of side, so it can decide if add or subtract certain values. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__cpuScan__group_ga2294cbaf993c07d8bfeca0c801f52d92}\label{group__cpuScan__group_ga2294cbaf993c07d8bfeca0c801f52d92}} 
+\index{Function used by cpuScan@{Function used by cpuScan}!valueOfBoard@{valueOfBoard}}
+\index{valueOfBoard@{valueOfBoard}!Function used by cpuScan@{Function used by cpuScan}}
+\doxysubsubsection{\texorpdfstring{valueOfBoard()}{valueOfBoard()}}
+{\footnotesize\ttfamily float value\+Of\+Board (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{char}]{side }\end{DoxyParamCaption})}
+
+
+
+Check board and gives it a value. 
+
+Scans through the board and depending on the position of each peace it add a certain value to the board 
+\begin{DoxyParams}{Parameters}
+{\em temp} & Board to scan \\
+\hline
+{\em side} & Used for the sign in the adding \\
+\hline
+\end{DoxyParams}

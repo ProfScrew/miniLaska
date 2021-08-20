@@ -1,0 +1,67 @@
+\hypertarget{structavailableMovement}{}\doxysection{available\+Movement Struct Reference}
+\label{structavailableMovement}\index{availableMovement@{availableMovement}}
+
+
+Contains list of available movement of a player.  
+
+
+
+
+{\ttfamily \#include $<$move.\+h$>$}
+
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structavailableMovement_a1cad841a634aa98df7ca49ec0d3a0f96}{count\+Eat\+Move}}
+\item 
+int \mbox{\hyperlink{structavailableMovement_a260ef6dbc4871973a80ff4b36f8337c2}{count\+Normal\+Move}}
+\item 
+int $\ast$$\ast$ \mbox{\hyperlink{structavailableMovement_a9026a85dc4ceae9f286899c13debb8eb}{eat\+Move}}
+\begin{DoxyCompactList}\small\item\em 2d array composed of 6 variables(x y start, x y eat, x y end) for count\+Eat\+Move \end{DoxyCompactList}\item 
+int $\ast$$\ast$ \mbox{\hyperlink{structavailableMovement_a8ca420aa109a4d6523469590d5e1e63d}{normal\+Move}}
+\begin{DoxyCompactList}\small\item\em 2d array composed of 4 variables(x y start, x y end) for count Normal\+Move \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains list of available movement of a player. 
+
+It uses two 2d arrays(pointer to pointer). Where one dimention is fixed on either 6 when capture/eat or 4 when normal move, the other dimention value is stored in the corresponding count value. 
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{structavailableMovement_a1cad841a634aa98df7ca49ec0d3a0f96}\label{structavailableMovement_a1cad841a634aa98df7ca49ec0d3a0f96}} 
+\index{availableMovement@{availableMovement}!countEatMove@{countEatMove}}
+\index{countEatMove@{countEatMove}!availableMovement@{availableMovement}}
+\doxysubsubsection{\texorpdfstring{countEatMove}{countEatMove}}
+{\footnotesize\ttfamily int available\+Movement\+::count\+Eat\+Move}
+
+\mbox{\Hypertarget{structavailableMovement_a260ef6dbc4871973a80ff4b36f8337c2}\label{structavailableMovement_a260ef6dbc4871973a80ff4b36f8337c2}} 
+\index{availableMovement@{availableMovement}!countNormalMove@{countNormalMove}}
+\index{countNormalMove@{countNormalMove}!availableMovement@{availableMovement}}
+\doxysubsubsection{\texorpdfstring{countNormalMove}{countNormalMove}}
+{\footnotesize\ttfamily int available\+Movement\+::count\+Normal\+Move}
+
+\mbox{\Hypertarget{structavailableMovement_a9026a85dc4ceae9f286899c13debb8eb}\label{structavailableMovement_a9026a85dc4ceae9f286899c13debb8eb}} 
+\index{availableMovement@{availableMovement}!eatMove@{eatMove}}
+\index{eatMove@{eatMove}!availableMovement@{availableMovement}}
+\doxysubsubsection{\texorpdfstring{eatMove}{eatMove}}
+{\footnotesize\ttfamily int$\ast$$\ast$ available\+Movement\+::eat\+Move}
+
+
+
+2d array composed of 6 variables(x y start, x y eat, x y end) for count\+Eat\+Move 
+
+\mbox{\Hypertarget{structavailableMovement_a8ca420aa109a4d6523469590d5e1e63d}\label{structavailableMovement_a8ca420aa109a4d6523469590d5e1e63d}} 
+\index{availableMovement@{availableMovement}!normalMove@{normalMove}}
+\index{normalMove@{normalMove}!availableMovement@{availableMovement}}
+\doxysubsubsection{\texorpdfstring{normalMove}{normalMove}}
+{\footnotesize\ttfamily int$\ast$$\ast$ available\+Movement\+::normal\+Move}
+
+
+
+2d array composed of 4 variables(x y start, x y end) for count Normal\+Move 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+headers/\mbox{\hyperlink{move_8h}{move.\+h}}\end{DoxyCompactItemize}

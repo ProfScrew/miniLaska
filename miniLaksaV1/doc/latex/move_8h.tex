@@ -1,0 +1,178 @@
+\hypertarget{move_8h}{}\doxysection{headers/move.h File Reference}
+\label{move_8h}\index{headers/move.h@{headers/move.h}}
+
+
+Contains list of movements and functions.  
+
+
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structavailableMovement}{available\+Movement}}
+\begin{DoxyCompactList}\small\item\em Contains list of available movement of a player. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structavailableMovement}{available\+Movement}} \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}}
+\begin{DoxyCompactList}\small\item\em Contains list of available movement of a player. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{move_8h_a4289a1819c7c0c6fa70bacd3e80fb0ab}{create\+Move}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Assignes pointers at null and values at zero. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{move_8h_a7c9fab3b47998438f2b0ffb5ba5c38e3}{reg\+Normal\+Move}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp, int fromI, int fromJ, int toI, int toJ)
+\begin{DoxyCompactList}\small\item\em Registeres movement in the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{move_8h_a2f76029f5cebdb7415d13d4c979c285a}{reg\+Eat\+Move}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp, int fromI, int fromJ, int eatI, int eatJ, int toI, int toJ)
+\begin{DoxyCompactList}\small\item\em Register capture in the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{move_8h_ac2a02eaa7aee4941e575917dcec6b7ce}{destroy\+Move}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Frees moves when not necessary. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{move_8h_a45360e8ff13142eac61e40397d6982af}{see\+Move}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Display moves (used for debug) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{move_8h_a660b69fa8d7020b51d9e200b30a82ea8}{print\+Norm\+Moves}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp, float $\ast$move)
+\begin{DoxyCompactList}\small\item\em Print normal move for the user. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{move_8h_a3c252190a69a136682609b90c133cc70}{print\+Eat\+Moves}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp, float $\ast$move)
+\begin{DoxyCompactList}\small\item\em Print capture move for the user. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{move_8h_ae1be3cf8a3f00dccc98f29635b0732ca}{random\+Choice}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp, float $\ast$move, bool type, int choice)
+\begin{DoxyCompactList}\small\item\em Checks moves if there are multiple top values, it randomly chooses between them. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utilitymove__group_ga29e4e4a88159a03d83e0218e90862606}{get\+Count\+Eat}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp)
+\item 
+int \mbox{\hyperlink{group__utilitymove__group_gae8937004bf6516cceb559898f7ecabcc}{get\+Count\+Normal}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp)
+\item 
+int \mbox{\hyperlink{group__utilitymove__group_gab6ef9f2cf6e2753922d5cd0c33afc0f8}{get\+Move\+Eat}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp, int move, int pos)
+\item 
+int \mbox{\hyperlink{group__utilitymove__group_gae46b4f98e135b3e821d114a6cad0c5de}{get\+Move\+Normal}} (\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$temp, int move, int pos)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains list of movements and functions. 
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}\label{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}} 
+\index{move.h@{move.h}!movement@{movement}}
+\index{movement@{movement}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{movement}{movement}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structavailableMovement}{available\+Movement}} \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}}}
+
+
+
+Contains list of available movement of a player. 
+
+It uses two 2d arrays(pointer to pointer). Where one dimention is fixed on either 6 when capture/eat or 4 when normal move, the other dimention value is stored in the corresponding count value. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{move_8h_a4289a1819c7c0c6fa70bacd3e80fb0ab}\label{move_8h_a4289a1819c7c0c6fa70bacd3e80fb0ab}} 
+\index{move.h@{move.h}!createMove@{createMove}}
+\index{createMove@{createMove}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{createMove()}{createMove()}}
+{\footnotesize\ttfamily void create\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Assignes pointers at null and values at zero. 
+
+\mbox{\Hypertarget{move_8h_ac2a02eaa7aee4941e575917dcec6b7ce}\label{move_8h_ac2a02eaa7aee4941e575917dcec6b7ce}} 
+\index{move.h@{move.h}!destroyMove@{destroyMove}}
+\index{destroyMove@{destroyMove}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{destroyMove()}{destroyMove()}}
+{\footnotesize\ttfamily void destroy\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Frees moves when not necessary. 
+
+\mbox{\Hypertarget{move_8h_a3c252190a69a136682609b90c133cc70}\label{move_8h_a3c252190a69a136682609b90c133cc70}} 
+\index{move.h@{move.h}!printEatMoves@{printEatMoves}}
+\index{printEatMoves@{printEatMoves}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{printEatMoves()}{printEatMoves()}}
+{\footnotesize\ttfamily void print\+Eat\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp,  }\item[{float $\ast$}]{move }\end{DoxyParamCaption})}
+
+
+
+Print capture move for the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & contains list of moves \\
+\hline
+{\em move} & contains value of move(used by cpus)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+If move is NULL it doesn\textquotesingle{}t specify the value. 
+\end{DoxyNote}
+\mbox{\Hypertarget{move_8h_a660b69fa8d7020b51d9e200b30a82ea8}\label{move_8h_a660b69fa8d7020b51d9e200b30a82ea8}} 
+\index{move.h@{move.h}!printNormMoves@{printNormMoves}}
+\index{printNormMoves@{printNormMoves}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{printNormMoves()}{printNormMoves()}}
+{\footnotesize\ttfamily void print\+Norm\+Moves (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp,  }\item[{float $\ast$}]{move }\end{DoxyParamCaption})}
+
+
+
+Print normal move for the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & contains list of moves \\
+\hline
+{\em move} & contains value of move(used by cpus)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+If move is NULL it doesn\textquotesingle{}t specify the value. 
+\end{DoxyNote}
+\mbox{\Hypertarget{move_8h_ae1be3cf8a3f00dccc98f29635b0732ca}\label{move_8h_ae1be3cf8a3f00dccc98f29635b0732ca}} 
+\index{move.h@{move.h}!randomChoice@{randomChoice}}
+\index{randomChoice@{randomChoice}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{randomChoice()}{randomChoice()}}
+{\footnotesize\ttfamily int random\+Choice (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp,  }\item[{float $\ast$}]{move,  }\item[{bool}]{type,  }\item[{int}]{choice }\end{DoxyParamCaption})}
+
+
+
+Checks moves if there are multiple top values, it randomly chooses between them. 
+
+Checks if the top value have doubles. If it has then it randomly chooses one of moves with the top value. If not then returns the top value
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & Used to extract number of moves. \\
+\hline
+{\em move} & Contains values of moves \\
+\hline
+{\em type} & Specifies if normal move or capture move \\
+\hline
+{\em choice} & Contains the high value \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{move_8h_a2f76029f5cebdb7415d13d4c979c285a}\label{move_8h_a2f76029f5cebdb7415d13d4c979c285a}} 
+\index{move.h@{move.h}!regEatMove@{regEatMove}}
+\index{regEatMove@{regEatMove}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{regEatMove()}{regEatMove()}}
+{\footnotesize\ttfamily void reg\+Eat\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp,  }\item[{int}]{fromI,  }\item[{int}]{fromJ,  }\item[{int}]{eatI,  }\item[{int}]{eatJ,  }\item[{int}]{toI,  }\item[{int}]{toJ }\end{DoxyParamCaption})}
+
+
+
+Register capture in the array. 
+
+Takes as paramenters position from origin, destination, capture and saves them in the corresponding array \mbox{\Hypertarget{move_8h_a7c9fab3b47998438f2b0ffb5ba5c38e3}\label{move_8h_a7c9fab3b47998438f2b0ffb5ba5c38e3}} 
+\index{move.h@{move.h}!regNormalMove@{regNormalMove}}
+\index{regNormalMove@{regNormalMove}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{regNormalMove()}{regNormalMove()}}
+{\footnotesize\ttfamily void reg\+Normal\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp,  }\item[{int}]{fromI,  }\item[{int}]{fromJ,  }\item[{int}]{toI,  }\item[{int}]{toJ }\end{DoxyParamCaption})}
+
+
+
+Registeres movement in the array. 
+
+Take as parameters position from origin, destination and saves them in the corresponding array \mbox{\Hypertarget{move_8h_a45360e8ff13142eac61e40397d6982af}\label{move_8h_a45360e8ff13142eac61e40397d6982af}} 
+\index{move.h@{move.h}!seeMove@{seeMove}}
+\index{seeMove@{seeMove}!move.h@{move.h}}
+\doxysubsubsection{\texorpdfstring{seeMove()}{seeMove()}}
+{\footnotesize\ttfamily void see\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Display moves (used for debug) 
+

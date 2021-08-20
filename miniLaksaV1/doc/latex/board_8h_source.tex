@@ -1,0 +1,56 @@
+\hypertarget{board_8h_source}{}\doxysection{board.\+h}
+\label{board_8h_source}\index{headers/board.h@{headers/board.h}}
+\mbox{\hyperlink{board_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#ifndef BOARD\_H}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#define BOARD\_H}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}../headers/move.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{comment}{/*contains board structure and all functions to manage it*/}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{18 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{structgameBoard}{gameBoard}}\{}
+\DoxyCodeLine{22    \textcolor{keywordtype}{char}*** \mbox{\hyperlink{structgameBoard_ac7c9d11268be3ab093dc0aa3b4ca7ee1}{Board}};    }
+\DoxyCodeLine{26    \textcolor{keywordtype}{char} \mbox{\hyperlink{structgameBoard_a0eff335730d8741218e01cc72f43815a}{winner}};      }
+\DoxyCodeLine{30    \textcolor{keywordtype}{char} \mbox{\hyperlink{structgameBoard_ae49a78d2490c8762f5731e2b2728e347}{turn}};        }
+\DoxyCodeLine{31 \}\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{gBoard}};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{36 \textcolor{keywordtype}{void} \mbox{\hyperlink{board_8h_a50f2edd458e851193383d5b68b88fae8}{createBoard}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);     }
+\DoxyCodeLine{40 \textcolor{keywordtype}{void} \mbox{\hyperlink{board_8h_ab334f4f8b629d7a5454908eedf57b1fe}{destroyBoard}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);    }
+\DoxyCodeLine{44 \textcolor{keywordtype}{void} \mbox{\hyperlink{board_8h_a54fbaba7e1742d95362cc1daa96ec1c2}{initBoard}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);       }
+\DoxyCodeLine{48 \textcolor{keywordtype}{void} \mbox{\hyperlink{board_8h_a0eaa83b767470562fbb1569009c9de92}{initPlayers}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);    }
+\DoxyCodeLine{57 \textcolor{keywordtype}{void} \mbox{\hyperlink{board_8h_ade4c25522ae9e5db3aef66aba3c2c23a}{copyBoard}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *copy, \mbox{\hyperlink{structgameBoard}{gBoard}} *original); \textcolor{comment}{/*copies board if one of board null then error*/}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{comment}{/*utility below*/}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 }
+\DoxyCodeLine{72 \textcolor{keywordtype}{char} \mbox{\hyperlink{group__utility__group_ga2e2a6bead4ad057c983bd086251a24d2}{getTurn}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);      }
+\DoxyCodeLine{73 \textcolor{keywordtype}{char} \mbox{\hyperlink{group__utility__group_gafd6289519143ec4c7236ec3f5a4e900d}{getWinner}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp); }
+\DoxyCodeLine{77 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__utility__group_ga22fe83d2c0091deced22afc83a99c816}{changeTurn}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);   }
+\DoxyCodeLine{81 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__utility__group_ga7231567a47bdf43675eb80f696956648}{selectWinner}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp); }
+\DoxyCodeLine{85 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__utility__group_ga9ad8391229d313044ab6efdb221fa956}{drawGame}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);     }
+\DoxyCodeLine{87 \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{comment}{/*below function that manage movement of the pieces*/}}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{107 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__movement__group_gaaa1dbb1d043fe7404740618b1297f770}{normalMovement}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp, \mbox{\hyperlink{structavailableMovement}{movement}} *list, \textcolor{keywordtype}{int} move);}
+\DoxyCodeLine{118 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__movement__group_gad356d0536ab5865deadb10acd0acdb07}{eatMovement}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp, \mbox{\hyperlink{structavailableMovement}{movement}} *list, \textcolor{keywordtype}{int} move);}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{123 \textcolor{comment}{/*functions used to scan board and determine available movement*/}}
+\DoxyCodeLine{135 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__check__group_ga6ff79dc455d80c90bdddc22b18ad0203}{checkWhite}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp, \mbox{\hyperlink{structavailableMovement}{movement}} *list);}
+\DoxyCodeLine{142 \textcolor{keywordtype}{void} \mbox{\hyperlink{group__check__group_gafe8888dd670ca53adf2f3226182469b1}{checkBlack}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp, \mbox{\hyperlink{structavailableMovement}{movement}} *list);}
+\DoxyCodeLine{145 \textcolor{comment}{/*function used by CPU scan to scan board at the end of depth and assign it a value*/}}
+\DoxyCodeLine{146 \textcolor{comment}{/*wich goes from -\/100 lost to 100 win, and various values in between that are assigned based on the peaces on the board*/}}
+\DoxyCodeLine{157 \textcolor{keywordtype}{float} \mbox{\hyperlink{group__cpuScan__group_ga2294cbaf993c07d8bfeca0c801f52d92}{valueOfBoard}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp,\textcolor{keywordtype}{char} side);}
+\DoxyCodeLine{159 \textcolor{comment}{/*outputs board*/}}
+\DoxyCodeLine{163 \textcolor{keywordtype}{void} \mbox{\hyperlink{board_8h_ac9ea3f0b3e8b94941e1bb52886f1dd06}{showBoard}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);}
+\DoxyCodeLine{164 \textcolor{comment}{/*reads game from txt file, used for debug*/}}
+\DoxyCodeLine{169 \textcolor{keywordtype}{void} \mbox{\hyperlink{board_8h_a2810cd18b58aef4008706c50c8bb8c25}{readGame}}(\mbox{\hyperlink{structgameBoard}{gBoard}} *temp);}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

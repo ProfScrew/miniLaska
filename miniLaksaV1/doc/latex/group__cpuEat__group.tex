@@ -1,0 +1,78 @@
+\hypertarget{group__cpuEat__group}{}\doxysection{Function used by cpu\+Eat}
+\label{group__cpuEat__group}\index{Function used by cpuEat@{Function used by cpuEat}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{group__cpuEat__group_ga6d9af4885ae8b9ac348873ea647e7ade}{cpu\+Eat\+Rec}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$original, int depth, int depth\+Count, float value, int $\ast$number\+Of\+Outcomes, char side)
+\begin{DoxyCompactList}\small\item\em Recursive function for the Cpu Eat. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}{cpu\+Eat}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, int depth)
+\begin{DoxyCompactList}\small\item\em Cpu that goes through all combinations and takes count of the captures. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}\label{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}} 
+\index{Function used by cpuEat@{Function used by cpuEat}!cpuEat@{cpuEat}}
+\index{cpuEat@{cpuEat}!Function used by cpuEat@{Function used by cpuEat}}
+\doxysubsubsection{\texorpdfstring{cpuEat()}{cpuEat()}}
+{\footnotesize\ttfamily void cpu\+Eat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{int}]{depth }\end{DoxyParamCaption})}
+
+
+
+Cpu that goes through all combinations and takes count of the captures. 
+
+Cpu Eat function that focuses on capture to evaluete the best move.
+
+Checks available movement. If There is none then its game lost, if only move available it plays it without calling the recursive function.
+
+But if there is more then one available movement it calls the recursive function(\mbox{\hyperlink{group__cpuEat__group_ga6d9af4885ae8b9ac348873ea647e7ade}{cpu\+Eat\+Rec}}) for each of available movement that calculates the value of the movement.
+
+After its done it picks the move with the highest value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & Board where game is played. \\
+\hline
+{\em depth} & Depth used by recursive function. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__cpuEat__group_ga6d9af4885ae8b9ac348873ea647e7ade}\label{group__cpuEat__group_ga6d9af4885ae8b9ac348873ea647e7ade}} 
+\index{Function used by cpuEat@{Function used by cpuEat}!cpuEatRec@{cpuEatRec}}
+\index{cpuEatRec@{cpuEatRec}!Function used by cpuEat@{Function used by cpuEat}}
+\doxysubsubsection{\texorpdfstring{cpuEatRec()}{cpuEatRec()}}
+{\footnotesize\ttfamily float cpu\+Eat\+Rec (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{original,  }\item[{int}]{depth,  }\item[{int}]{depth\+Count,  }\item[{float}]{value,  }\item[{int $\ast$}]{number\+Of\+Outcomes,  }\item[{char}]{side }\end{DoxyParamCaption})}
+
+
+
+Recursive function for the Cpu Eat. 
+
+Goes throught each of possible move to a certain depth and takes in consideration the captures
+
+Cases\+:
+\begin{DoxyItemize}
+\item If no available movement it registeres the value as a win/loss and then devides by the depth count
+\item If depth is zero then the value is devided by the depth count and returned
+\item If depth is not zero it checks move and for each move it calls the function \#cpu\+Eat\+Move\+:
+\begin{DoxyItemize}
+\item If it\textquotesingle{}s a normal move it does nothing
+\item If capture move then it adds or subtracts a certain value
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em original} & Board on which the function is working on. \\
+\hline
+{\em depth} & Keeps track of how much still has to go into depth \\
+\hline
+{\em depth\+Count} & Keeps track of current depth and used to divide the value at the end so a win of a deeper depth has less value then the one higher \\
+\hline
+{\em value} & Stores the value of the move, each time there is a capture it is increased or decreased depending on the side \\
+\hline
+{\em number\+Of\+Outcomes} & Counts the possible outcomes it is used later in the \mbox{\hyperlink{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}{cpu\+Eat}} to devide the returned value \\
+\hline
+{\em side} & Tracks the side, used in the value manipulation \\
+\hline
+\end{DoxyParams}

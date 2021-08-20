@@ -1,0 +1,55 @@
+\hypertarget{participants_8c}{}\doxysection{src/participants.c File Reference}
+\label{participants_8c}\index{src/participants.c@{src/participants.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../headers/participants.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../headers/board.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../headers/move.\+h\char`\"{}}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{participants_8c_aeb02de9c44792ceea65f97863713236b}{player\+Move}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em The user decides which move to play. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{participants_8c_a2d72fbbec92d93d750b06af8a30f8f45}{cpu\+Move\+Random}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp)
+\begin{DoxyCompactList}\small\item\em Cpu that randomly chooses a move. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__cpuScan__group_ga23e967ede87ba6c5e161e48fbb9df68e}{cpu\+Scan\+Rec}} (int depth, \mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$original, float $\ast$number\+Of\+Outcomes, char side)
+\begin{DoxyCompactList}\small\item\em Recursive function for the Cpu Scan. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__cpuScan__group_gaa51724f27e2e5f5575337e8dd406e8c1}{cpu\+Scan}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, int depth)
+\begin{DoxyCompactList}\small\item\em Cpu that goes through all combinations and at the end scans boards. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{group__cpuEat__group_ga6d9af4885ae8b9ac348873ea647e7ade}{cpu\+Eat\+Rec}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$original, int depth, int depth\+Count, float value, int $\ast$number\+Of\+Outcomes, char side)
+\begin{DoxyCompactList}\small\item\em Recursive function for the Cpu Eat. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__cpuEat__group_ga6fbddec31a1992be30ea7ccdf4c1137c}{cpu\+Eat}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, int depth)
+\begin{DoxyCompactList}\small\item\em Cpu that goes through all combinations and takes count of the captures. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{participants_8c_a2d72fbbec92d93d750b06af8a30f8f45}\label{participants_8c_a2d72fbbec92d93d750b06af8a30f8f45}} 
+\index{participants.c@{participants.c}!cpuMoveRandom@{cpuMoveRandom}}
+\index{cpuMoveRandom@{cpuMoveRandom}!participants.c@{participants.c}}
+\doxysubsubsection{\texorpdfstring{cpuMoveRandom()}{cpuMoveRandom()}}
+{\footnotesize\ttfamily void cpu\+Move\+Random (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+Cpu that randomly chooses a move. 
+
+\mbox{\Hypertarget{participants_8c_aeb02de9c44792ceea65f97863713236b}\label{participants_8c_aeb02de9c44792ceea65f97863713236b}} 
+\index{participants.c@{participants.c}!playerMove@{playerMove}}
+\index{playerMove@{playerMove}!participants.c@{participants.c}}
+\doxysubsubsection{\texorpdfstring{playerMove()}{playerMove()}}
+{\footnotesize\ttfamily void player\+Move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp }\end{DoxyParamCaption})}
+
+
+
+The user decides which move to play. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & Board where game is played.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyWarning}{Warning}
+If user inserts 5 times invalid input the program will terminate. 
+\end{DoxyWarning}

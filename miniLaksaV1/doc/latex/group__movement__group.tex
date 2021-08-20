@@ -1,0 +1,64 @@
+\hypertarget{group__movement__group}{}\doxysection{Movement}
+\label{group__movement__group}\index{Movement@{Movement}}
+
+
+Functions that move the peaces on the board.  
+
+
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__movement__group_gaaa1dbb1d043fe7404740618b1297f770}{normal\+Movement}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list, int move)
+\begin{DoxyCompactList}\small\item\em Manages a normal movement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__movement__group_gad356d0536ab5865deadb10acd0acdb07}{eat\+Movement}} (\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$temp, \mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$list, int move)
+\begin{DoxyCompactList}\small\item\em Manages a capture movement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions that move the peaces on the board. 
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__movement__group_gad356d0536ab5865deadb10acd0acdb07}\label{group__movement__group_gad356d0536ab5865deadb10acd0acdb07}} 
+\index{Movement@{Movement}!eatMovement@{eatMovement}}
+\index{eatMovement@{eatMovement}!Movement@{Movement}}
+\doxysubsubsection{\texorpdfstring{eatMovement()}{eatMovement()}}
+{\footnotesize\ttfamily void eat\+Movement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{list,  }\item[{int}]{move }\end{DoxyParamCaption})}
+
+
+
+Manages a capture movement. 
+
+Captures, and also takes care of promotion
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & board on which the function is workin on \\
+\hline
+{\em list} & pointer to the list that contains information on all possible capture/eat \\
+\hline
+{\em move} & which of the movement is choosen \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__movement__group_gaaa1dbb1d043fe7404740618b1297f770}\label{group__movement__group_gaaa1dbb1d043fe7404740618b1297f770}} 
+\index{Movement@{Movement}!normalMovement@{normalMovement}}
+\index{normalMovement@{normalMovement}!Movement@{Movement}}
+\doxysubsubsection{\texorpdfstring{normalMovement()}{normalMovement()}}
+{\footnotesize\ttfamily void normal\+Movement (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{board_8h_a6a91cf6bc947d8b7971b38846655a604}{g\+Board}} $\ast$}]{temp,  }\item[{\mbox{\hyperlink{move_8h_a61ae77a532a94cc7ac8dbcbb712d667f}{movement}} $\ast$}]{list,  }\item[{int}]{move }\end{DoxyParamCaption})}
+
+
+
+Manages a normal movement. 
+
+Moves the peaces, and also takes care of promotion
+
+
+\begin{DoxyParams}{Parameters}
+{\em temp} & board on which the function is workin on \\
+\hline
+{\em list} & pointer to the list that contains information on all possible movement \\
+\hline
+{\em move} & which of the movement is choosen \\
+\hline
+\end{DoxyParams}
