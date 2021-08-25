@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "stdio.h": "c",
-        "main.h": "c",
-        "board.h": "c",
-        "participants.h": "c",
-        "move.h": "c"
-    }
-}
