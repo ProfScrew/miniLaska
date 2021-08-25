@@ -60,7 +60,6 @@ void destroyMove(movement *temp){
     }
 }
 
-
 void seeMove(movement *temp){
     int i, j;
     printf("\nNormalMoves\n");
@@ -78,7 +77,6 @@ void seeMove(movement *temp){
         printf("\n");
     }
 }
-
 
 void printNormMoves(movement *temp, float *move){
     int i;
@@ -131,12 +129,8 @@ int randomChoice(movement *temp, float *move, bool type, int choice){
     return choice;
 }
 
-int getCountEat(movement *temp){ return temp->countEatMove; }
-int getCountNormal(movement *temp){ return temp->countNormalMove; }
+int getCountEat(movement *temp){return temp->countEatMove;}
+int getCountNormal(movement *temp){return temp->countNormalMove;}
 
-int getMoveEat(movement *temp,int move, int pos){
-    return temp->eatMove[move][pos];
-}
-int getMoveNormal(movement *temp, int move, int pos){
-    return temp->normalMove[move][pos];
-}
+int getMoveEat(movement *temp,int move, int pos){return temp->eatMove[move][pos];}
+int getMoveNormal(movement *temp, int move, int pos){return temp->normalMove[move][pos];}
